@@ -35,54 +35,38 @@ POSTGRES_SQL_STATEMENT = textwrap.dedent(
 
 # https://www.postgresql.org/docs/current/catalog-pg-class.html
 # r = ordinary table, v = view, m = materialized view, c = composite type, f = foreign table, p = partitioned table,
+# PATCHED for PG 9.2: removed `relispartition` (PG 10+); `'p'` in relkind is harmless in 9.2 (won't match).
 POSTGRES_GET_TABLE_NAMES = """
     SELECT c.relname, c.relkind FROM pg_class c
     JOIN pg_namespace n ON n.oid = c.relnamespace
-    WHERE n.nspname = :schema AND c.relkind in ('r', 'p', 'f') AND relispartition = false
+    WHERE n.nspname = :schema AND c.relkind in ('r', 'p', 'f')
 """
 POSTGRES_TABLE_OWNERS = """
 select schemaname, tablename, tableowner from pg_catalog.pg_tables where schemaname <> 'pg_catalog' order by schemaname,tablename;
 """
+# PATCHED for PG 9.2: native partitioning (pg_partitioned_table / partstrat / partattrs)
+# does not exist. Return 0 rows. The :table_name / :schema_name placeholders are kept
+# (referenced in WHERE) so the caller's bind params are consumed and SQLAlchemy does
+# not raise "Unexpected parameter".
 POSTGRES_PARTITION_DETAILS = textwrap.dedent(
     """
     select
-        par.relnamespace::regnamespace::text as schema,
-        par.relname as table_name,
-        partition_strategy,
-        col.column_name
-    from
-        (select
-             partrelid,
-             partnatts,
-             case partstrat
-                  when 'l' then 'list'
-                  when 'h' then 'hash'
-                  when 'r' then 'range' end as partition_strategy,
-             unnest(partattrs) column_index
-         from
-             pg_partitioned_table) pt
-    join
-        pg_class par
-    on
-        par.oid = pt.partrelid
-    left join
-        information_schema.columns col
-    on
-        col.table_schema = par.relnamespace::regnamespace::text
-        and col.table_name = par.relname
-        and ordinal_position = pt.column_index
-     where par.relname=:table_name and  par.relnamespace::regnamespace::text=:schema_name
+        NULL::text as schema,
+        NULL::text as table_name,
+        NULL::text as partition_strategy,
+        NULL::text as column_name
+    where
+        :table_name = :table_name and :schema_name = :schema_name and 1=0
     """
 )
 
+# PATCHED for PG 9.2: pg_policy (RLS policies) was introduced in PG 9.5; 9.2 has none.
+# Return 0 rows. The .format() placeholders {database_name}/{schema_name} are placed
+# inside a comment so .format() still finds them without injecting values into SQL.
 POSTGRES_GET_ALL_TABLE_PG_POLICY = """
-SELECT object_id, polname, table_catalog, table_schema, table_name  
-FROM information_schema.tables AS it
-JOIN (SELECT pc.oid as object_id, pc.relname, pp.*
-      FROM pg_policy AS pp
-      JOIN pg_class AS pc ON pp.polrelid = pc.oid
-      JOIN pg_namespace as pn ON pc.relnamespace = pn.oid) AS ppr ON it.table_name = ppr.relname
-WHERE it.table_schema='{schema_name}' AND it.table_catalog='{database_name}';
+/* placeholders: {database_name} {schema_name} */
+SELECT NULL::int as object_id, NULL::text as polname, NULL::text as table_catalog, NULL::text as table_schema, NULL::text as table_name
+WHERE 1=0
 """  # noqa: W291
 
 POSTGRES_SCHEMA_COMMENTS = """
@@ -123,14 +107,10 @@ POSTGRES_GET_DATABASE = """
 select datname from pg_catalog.pg_database
 """
 
+# PATCHED for PG 9.2: pg_policy does not exist. Return 0 rows so the connection
+# test step for GetTags passes (no exception) and features are treated as N/A.
 POSTGRES_TEST_GET_TAGS = """
-SELECT object_id, polname, table_catalog , table_schema ,table_name  
-FROM information_schema.tables AS it
-JOIN (SELECT pc.oid as object_id, pc.relname, pp.*
-      FROM pg_policy AS pp
-      JOIN pg_class AS pc ON pp.polrelid = pc.oid
-      JOIN pg_namespace as pn ON pc.relnamespace = pn.oid) AS ppr ON it.table_name = ppr.relname
-      LIMIT 1
+SELECT NULL::int as object_id, NULL::text as polname, NULL::text as table_catalog, NULL::text as table_schema, NULL::text as table_name WHERE 1=0
 """  # noqa: W291
 
 POSTGRES_TEST_GET_QUERIES = """
@@ -143,7 +123,7 @@ POSTGRES_TEST_GET_QUERIES = """
         {query_statement_source} s
         JOIN pg_catalog.pg_database d ON s.dbid = d.oid
         JOIN pg_catalog.pg_user u ON s.userid = u.usesysid
-        LIMIT 1
+      LIMIT 1
     """
 
 
@@ -219,6 +199,8 @@ POSTGRES_FETCH_FK = """
     ORDER BY 1
 """
 
+# PATCHED for PG 9.2: `prokind` column (PG 11+) does not exist. PG 9.2 has no
+# "stored procedure" concept (only functions via CREATE FUNCTION), so return 0 rows.
 POSTGRES_GET_STORED_PROCEDURES = """
     SELECT proname AS procedure_name,
         nspname AS schema_name,
@@ -229,10 +211,12 @@ POSTGRES_GET_STORED_PROCEDURES = """
         obj_description(pg_proc.oid, 'pg_proc') AS description
     FROM pg_proc
     JOIN pg_namespace ON pg_proc.pronamespace = pg_namespace.oid
-    WHERE prokind = 'p'
+    WHERE 1=0
     and pg_namespace.nspname = '{schema_name}';
 """
 
+# PATCHED for PG 9.2: replace `prokind = 'f'` (PG 11+) with the PG 9.2 equivalent
+# `proisagg = false AND proiswindow = false` to keep "regular functions only".
 POSTGRES_GET_FUNCTIONS = """
 SELECT
     proname AS procedure_name,
@@ -246,7 +230,7 @@ FROM
     pg_proc
     JOIN pg_namespace ON pg_proc.pronamespace = pg_namespace.oid
 WHERE
-    prokind = 'f'
+    proisagg = false AND proiswindow = false
     and pg_namespace.nspname = '{schema_name}';
 """
 
