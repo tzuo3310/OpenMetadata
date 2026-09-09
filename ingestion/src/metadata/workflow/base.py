@@ -356,9 +356,8 @@ class BaseWorkflow(ABC, WorkflowStatusMixin):
                 self.print_status()
             finally:
                 self.stop()
-            finally:
-                # Must run after every other emitter so the tail is captured.
-                cleanup_streamable_logging()
+            # Must run after every other emitter so the tail is captured.
+            cleanup_streamable_logging()
 
     @property
     def run_id(self) -> str:
