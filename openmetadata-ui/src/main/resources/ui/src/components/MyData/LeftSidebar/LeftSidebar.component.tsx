@@ -118,12 +118,15 @@ const LeftSidebar = () => {
       data-testid="left-sidebar"
       trigger={null}
       width={228}>
-      <div className="logo-container">
+      <div
+        className={classNames('logo-container', {
+          collapsed: isSidebarCollapsed,
+        })}>
         <Link className="flex-shrink-0" id="openmetadata_logo" to="/">
           <BrandImage
             className="vertical-middle h-full"
             dataTestId="image"
-            height={40}
+            height={isSidebarCollapsed ? 44 : 56}
             isMonoGram={isSidebarCollapsed}
             width="auto"
           />
