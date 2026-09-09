@@ -40,6 +40,7 @@ import AsyncSelectList from '../components/common/AsyncSelectList/AsyncSelectLis
 import { AsyncSelectListProps } from '../components/common/AsyncSelectList/AsyncSelectList.interface';
 import TreeAsyncSelectList from '../components/common/AsyncSelectList/TreeAsyncSelectList';
 import ColorPicker from '../components/common/ColorPicker/ColorPicker.component';
+import GradientColorPicker from '../components/common/ColorPicker/GradientColorPicker';
 import DomainSelectableList from '../components/common/DomainSelectableList/DomainSelectableList.component';
 import { DomainSelectableListProps } from '../components/common/DomainSelectableList/DomainSelectableList.interface';
 import FilterPattern from '../components/common/FilterPattern/FilterPattern';
@@ -327,6 +328,11 @@ export const getField = (field: FieldProp) => {
       break;
     case FieldTypes.COLOR_PICKER:
       fieldElement = <ColorPicker {...props} />;
+
+      break;
+
+    case FieldTypes.GRADIENT_COLOR_PICKER:
+      fieldElement = <GradientColorPicker {...props} />;
 
       break;
 

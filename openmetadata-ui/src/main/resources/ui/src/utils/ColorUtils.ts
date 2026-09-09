@@ -175,10 +175,74 @@ export const entityChartColor = (index: number): string => {
 };
 
 /**
- * Check if the color is a linear gradient
- * @param color - Color string
- * @returns {boolean} - True if the color is a linear gradient, false otherwise
+ * Parse a theme color value that may be either a solid hex code or a
+ * `linear-gradient(...)` string into its constituent parts.
  */
+const GRADIENT_VALUE_REGEX =
+  /linear-gradient\(\s*([\d.]+)deg\s*,\s*(#[0-9a-fA-F]{3,8})\s+\d+%?\s*,\s*(#[0-9a-fA-F]{3,8})\s+\d+%?\s*\)/;
+
+export interface ParsedColorValue {
+  isGradient: boolean;
+  from: string;
+  to: string;
+  angle: number;
+}
+
+export const parseColorValue = (value?: string): ParsedColorValue => {
+  if (!value) {
+    return { isGradient: false, from: '', to: '', angle: 135 };
+  }
+
+  const match = value.match(GRADIENT_VALUE_REGEX);
+  if (match) {
+    return {
+      isGradient: true,
+      angle: parseFloat(match[1]),
+      from: match[2],
+      to: match[3],
+    };
+  }
+
+  return { isGradient: false, from: value, to: value, angle: 135 };
+};
+
+export const buildGradientValue = (
+  from: string,
+  to: string,
+  angle: number
+): string => `linear-gradient(${angle}deg, ${from} 0%, ${to} 100%)`;
+
+/**
+ * Collapse a from/to/angle triplet into a stored value: a solid hex when the
+ * two stops are identical (so legacy hex configs stay as hex), otherwise a
+ * linear-gradient string.
+ */
+export const toColorValue = (
+  from: string,
+  to: string,
+  angle: number
+): string => {
+  if (!from || from.toLowerCase() === to.toLowerCase()) {
+    return from;
+  }
+
+  return buildGradientValue(from, to, angle);
+};
+
+/**
+ * Convert a stored theme color (solid hex or `linear-gradient(...)`) into the
+ * value used for background surfaces. Falls back to the solid hex when the two
+ * gradient stops are identical, so legacy hex configs keep rendering solid.
+ */
+export const colorToGradient = (color?: string): string => {
+  if (!color) {
+    return '';
+  }
+  const { from, to, angle } = parseColorValue(color);
+
+  return toColorValue(from, to, angle);
+};
+
 export const isLinearGradient = (color: string) => {
   return color.toLowerCase().includes('linear-gradient');
 };

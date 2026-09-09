@@ -63,6 +63,13 @@ export const ENDS_WITH_NUMBER_REGEX = /\d+$/;
 
 export const HEX_COLOR_CODE_REGEX = /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/;
 
+/**
+ * Accepts either a solid hex code or a `linear-gradient(...)` string so the
+ * custom-theme color fields can store gradients.
+ */
+export const THEME_COLOR_REGEX =
+  /^(#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})|linear-gradient\([^)]*\)$)/;
+
 export const UUID_REGEX =
   /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/;
 

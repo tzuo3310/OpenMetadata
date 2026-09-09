@@ -16,6 +16,7 @@ import { useTranslation } from 'react-i18next';
 import { DEFAULT_THEME } from '../../constants/Appearance.constants';
 import { useApplicationStore } from '../../hooks/useApplicationStore';
 import { generatePalette } from '../../styles/colorPallet';
+import { colorToGradient } from '../../utils/ColorUtils';
 
 const AntDConfigProvider: FC<{ children: ReactNode }> = ({ children }) => {
   const { i18n } = useTranslation();
@@ -75,6 +76,13 @@ const AntDConfigProvider: FC<{ children: ReactNode }> = ({ children }) => {
     document.documentElement.style.setProperty(
       `--ant-primary-color-active`,
       selectedColor
+    );
+    document.documentElement.style.setProperty(
+      `--ant-primary-gradient`,
+      colorToGradient(
+        applicationConfig?.customTheme?.primaryColor ??
+          DEFAULT_THEME.primaryColor
+      )
     );
   }, [
     applicationConfig?.customTheme?.primaryColor,

@@ -4,17 +4,21 @@
  *  you may not use this file except in compliance with the License.
  *  You may obtain a copy of the License at
  *  http://www.apache.org/licenses/LICENSE-2.0
+ *
  *  Unless required by applicable law or agreed to in writing, software
- *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  distributed under the License is distributed on an "as IS" BASIS,
  *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
 
 import {
+  colorToGradient,
   getAvatarColorClass,
   getFirstAlphanumeric,
   isLinearGradient,
+  parseColorValue,
+  toColorValue,
 } from './ColorUtils';
 
 describe('ColorUtils', () => {
@@ -133,6 +137,58 @@ describe('ColorUtils', () => {
 
     it('should not throw for an empty name', () => {
       expect(() => getAvatarColorClass('', true)).not.toThrow();
+    });
+  });
+
+  describe('gradient helpers', () => {
+    it('parses a solid hex', () => {
+      expect(parseColorValue('#1570ef')).toEqual({
+        isGradient: false,
+        from: '#1570ef',
+        to: '#1570ef',
+        angle: 135,
+      });
+    });
+
+    it('parses a linear-gradient', () => {
+      expect(
+        parseColorValue('linear-gradient(135deg, #1570ef 0%, #175cd3 100%)')
+      ).toEqual({
+        isGradient: true,
+        from: '#1570ef',
+        to: '#175cd3',
+        angle: 135,
+      });
+    });
+
+    it('collapses equal stops to the solid hex', () => {
+      expect(toColorValue('#1570ef', '#1570ef', 135)).toBe('#1570ef');
+    });
+
+    it('builds a gradient for differing stops', () => {
+      expect(toColorValue('#1570ef', '#175cd3', 90)).toBe(
+        'linear-gradient(90deg, #1570ef 0%, #175cd3 100%)'
+      );
+    });
+
+    it('colorToGradient returns hex for solid input', () => {
+      expect(colorToGradient('#1570ef')).toBe('#1570ef');
+    });
+
+    it('colorToGradient returns a gradient for gradient input', () => {
+      expect(
+        colorToGradient('linear-gradient(135deg, #1570ef 0%, #175cd3 100%)')
+      ).toBe('linear-gradient(135deg, #1570ef 0%, #175cd3 100%)');
+    });
+
+    it('handles empty input', () => {
+      expect(parseColorValue('')).toEqual({
+        isGradient: false,
+        from: '',
+        to: '',
+        angle: 135,
+      });
+      expect(colorToGradient('')).toBe('');
     });
   });
 });
