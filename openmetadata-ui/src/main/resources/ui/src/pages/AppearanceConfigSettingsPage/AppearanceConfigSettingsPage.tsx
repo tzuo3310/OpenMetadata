@@ -36,7 +36,7 @@ import { TitleBreadcrumbProps } from '../../components/common/TitleBreadcrumb/Ti
 import PageHeader from '../../components/PageHeader/PageHeader.component';
 import PageLayoutV1 from '../../components/PageLayoutV1/PageLayoutV1';
 import { GlobalSettingsMenuCategory } from '../../constants/GlobalSettings.constants';
-import { THEME_COLOR_REGEX } from '../../constants/regex.constants';
+import { HEX_COLOR_CODE_REGEX } from '../../constants/regex.constants';
 import { LogoConfiguration } from '../../generated/configuration/logoConfiguration';
 import { UIThemePreference } from '../../generated/configuration/uiThemePreference';
 import { Settings, SettingType } from '../../generated/settings/settings';
@@ -44,7 +44,6 @@ import { useApplicationStore } from '../../hooks/useApplicationStore';
 import { FieldProp, FieldTypes } from '../../interface/FormUtils.interface';
 import { updateSettingsConfig } from '../../rest/settingConfigAPI';
 import { generatePalette } from '../../styles/colorPallet';
-import { parseColorValue } from '../../utils/ColorUtils';
 import { getField } from '../../utils/formUtils';
 import { getSettingPageEntityBreadCrumb } from '../../utils/GlobalSettingsUtils';
 import { getThemeConfig } from '../../utils/ThemeUtils';
@@ -170,10 +169,10 @@ const AppearanceConfigSettingsPage = () => {
       id: 'primaryColor',
       label: 'Primary Color',
       required: false,
-      type: FieldTypes.GRADIENT_COLOR_PICKER,
+      type: FieldTypes.COLOR_PICKER,
       rules: [
         {
-          pattern: THEME_COLOR_REGEX,
+          pattern: HEX_COLOR_CODE_REGEX,
           message: t('message.hex-color-validation'),
         },
       ],
@@ -186,10 +185,10 @@ const AppearanceConfigSettingsPage = () => {
       id: 'selectedColor',
       label: 'Selected Color',
       required: false,
-      type: FieldTypes.GRADIENT_COLOR_PICKER,
+      type: FieldTypes.COLOR_PICKER,
       rules: [
         {
-          pattern: THEME_COLOR_REGEX,
+          pattern: HEX_COLOR_CODE_REGEX,
           message: t('message.hex-color-validation'),
         },
       ],
@@ -202,10 +201,10 @@ const AppearanceConfigSettingsPage = () => {
       id: 'hoverColor',
       label: 'Hover Color',
       required: false,
-      type: FieldTypes.GRADIENT_COLOR_PICKER,
+      type: FieldTypes.COLOR_PICKER,
       rules: [
         {
-          pattern: THEME_COLOR_REGEX,
+          pattern: HEX_COLOR_CODE_REGEX,
           message: t('message.hex-color-validation'),
         },
       ],
@@ -218,10 +217,10 @@ const AppearanceConfigSettingsPage = () => {
       id: 'panelBackgroundColor',
       label: t('label.panel-background-color'),
       required: false,
-      type: FieldTypes.GRADIENT_COLOR_PICKER,
+      type: FieldTypes.COLOR_PICKER,
       rules: [
         {
-          pattern: THEME_COLOR_REGEX,
+          pattern: HEX_COLOR_CODE_REGEX,
           message: t('message.hex-color-validation'),
         },
       ],
@@ -234,10 +233,10 @@ const AppearanceConfigSettingsPage = () => {
       id: 'errorColor',
       label: 'Error Color',
       required: false,
-      type: FieldTypes.GRADIENT_COLOR_PICKER,
+      type: FieldTypes.COLOR_PICKER,
       rules: [
         {
-          pattern: THEME_COLOR_REGEX,
+          pattern: HEX_COLOR_CODE_REGEX,
           message: t('message.hex-color-validation'),
         },
       ],
@@ -250,10 +249,10 @@ const AppearanceConfigSettingsPage = () => {
       id: 'successColor',
       label: 'Success Color',
       required: false,
-      type: FieldTypes.GRADIENT_COLOR_PICKER,
+      type: FieldTypes.COLOR_PICKER,
       rules: [
         {
-          pattern: THEME_COLOR_REGEX,
+          pattern: HEX_COLOR_CODE_REGEX,
           message: t('message.hex-color-validation'),
         },
       ],
@@ -266,10 +265,10 @@ const AppearanceConfigSettingsPage = () => {
       id: 'warningColor',
       label: 'Warning Color',
       required: false,
-      type: FieldTypes.GRADIENT_COLOR_PICKER,
+      type: FieldTypes.COLOR_PICKER,
       rules: [
         {
-          pattern: THEME_COLOR_REGEX,
+          pattern: HEX_COLOR_CODE_REGEX,
           message: t('message.hex-color-validation'),
         },
       ],
@@ -282,10 +281,10 @@ const AppearanceConfigSettingsPage = () => {
       id: 'infoColor',
       label: 'Info Color',
       required: false,
-      type: FieldTypes.GRADIENT_COLOR_PICKER,
+      type: FieldTypes.COLOR_PICKER,
       rules: [
         {
-          pattern: THEME_COLOR_REGEX,
+          pattern: HEX_COLOR_CODE_REGEX,
           message: t('message.hex-color-validation'),
         },
       ],
@@ -505,9 +504,6 @@ const AppearanceConfigSettingsPage = () => {
                       formState[
                         field.name as keyof UIThemePreference['customTheme']
                       ];
-                    const parsedColor = parseColorValue(currentColor as string);
-                    const solidColor =
-                      parsedColor.from || (currentColor as string);
 
                     return (
                       <Col className="w-full" key={field.id} span={24}>
@@ -530,14 +526,14 @@ const AppearanceConfigSettingsPage = () => {
                                 icon={<Icon component={ShareIcon} />}
                                 style={{
                                   width: '56px',
-                                  color: solidColor,
-                                  borderColor: solidColor,
+                                  color: currentColor,
+                                  borderColor: currentColor,
                                 }}
                               />
                               <Button
                                 style={{
-                                  color: solidColor,
-                                  borderColor: solidColor,
+                                  color: currentColor,
+                                  borderColor: currentColor,
                                   width: '86px',
                                 }}
                                 type="default">
@@ -547,13 +543,13 @@ const AppearanceConfigSettingsPage = () => {
                               </Button>
                               <DomainIcon
                                 style={{
-                                  color: solidColor,
+                                  color: currentColor,
                                 }}
                                 width={32}
                               />
                               <Button
                                 style={{
-                                  color: solidColor,
+                                  color: currentColor,
                                   padding: 0,
                                 }}
                                 type="link">

@@ -46,7 +46,6 @@ export enum FieldTypes {
   USER_TEAM_SELECT_INPUT = 'user_team_select_input',
   USER_MULTI_SELECT = 'user_multi_select',
   COLOR_PICKER = 'color_picker',
-  GRADIENT_COLOR_PICKER = 'gradient_color_picker',
   DOMAIN_SELECT = 'domain_select',
   CRON_EDITOR = 'cron_editor',
   TREE_ASYNC_SELECT_LIST = 'tree_async_select_list',

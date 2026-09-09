@@ -226,15 +226,6 @@ button {
   background-color: var(--tw-color-bg-primary);
   color: inherit;
 }
-// Allow the custom primary theme color to render as a gradient. The gradient
-// resolves to the solid hex when no gradient is configured, so the default
-// appearance is unchanged. Only the resting state is overridden so we don't
-// fight Ant Design's hover/active/disabled backgrounds.
-.ant-btn-primary:not(:disabled):not(:hover):not(:focus) {
-  background: var(--ant-primary-gradient, @primary-color);
-  border-color: transparent;
-}
-
 .ant-btn.ant-btn-dangerous {
   background: @red-14;
   border-color: @red-14;

@@ -31,7 +31,6 @@ import {
   AnnouncementEntity,
   getActiveAnnouncements,
 } from '../../../../rest/announcementsAPI';
-import { isLinearGradient } from '../../../../utils/ColorUtils';
 import { showErrorToast } from '../../../../utils/ToastUtils';
 import withSuspenseFallback from '../../../AppRouter/withSuspenseFallback';
 import './customise-landing-page-header.less';
@@ -96,17 +95,13 @@ const CustomiseLandingPageHeader = ({
   const bgColor =
     backgroundColor || adminPanelBackgroundColor || DEFAULT_HEADER_BG_COLOR;
 
-  const landingPageStyle = useMemo(() => {
-    const backgroundImage = isLinearGradient(bgColor)
-      ? `${bgColor}, url(${LandingPageBg})` // gradient first (on top), image second
-      : `url(${LandingPageBg})`;
-
-    return {
-      backgroundImage,
-      backgroundColor: isLinearGradient(bgColor) ? undefined : bgColor, // for hex-only case
-      backgroundBlendMode: isLinearGradient(bgColor) ? 'overlay' : 'normal',
-    };
-  }, [bgColor]);
+  const landingPageStyle = useMemo(
+    () => ({
+      backgroundImage: `url(${LandingPageBg})`,
+      backgroundColor: bgColor,
+    }),
+    [bgColor]
+  );
 
   const fetchAnnouncements = useCallback(async () => {
     try {

@@ -12,7 +12,6 @@
  */
 import type { ReactNode } from 'react';
 import { createContext, useContext, useEffect, useMemo, useState } from 'react';
-import { colorToGradient } from '../../utils/ColorUtils';
 import {
   BrandColors,
   Theme,
@@ -89,10 +88,7 @@ const applyBrandCssVars = (colors: BrandColors, root: HTMLElement) => {
       '--tw-color-fg-brand-secondary_hover',
       hoverColor ?? primaryColor
     );
-    root.style.setProperty(
-      '--tw-color-bg-brand-solid',
-      colorToGradient(primaryColor)
-    );
+    root.style.setProperty('--tw-color-bg-brand-solid', primaryColor);
     root.style.setProperty('--tw-color-border-brand_alt', primaryColor);
     root.style.setProperty('--tw-color-text-brand-tertiary', primaryColor);
     root.style.setProperty('--tw-color-text-brand-tertiary_alt', primaryColor);
@@ -102,10 +98,7 @@ const applyBrandCssVars = (colors: BrandColors, root: HTMLElement) => {
       primaryColor
     );
     root.style.setProperty('--tw-color-slider-handle-border', primaryColor);
-    root.style.setProperty(
-      '--tw-background-color-brand-solid',
-      colorToGradient(primaryColor)
-    );
+    root.style.setProperty('--tw-background-color-brand-solid', primaryColor);
     root.style.setProperty(
       '--tw-background-color-border-brand_alt',
       primaryColor
@@ -128,25 +121,19 @@ const applyBrandCssVars = (colors: BrandColors, root: HTMLElement) => {
     root.style.setProperty('--tw-color-brand-700', selectedColor);
     root.style.setProperty('--tw-color-utility-brand-700', selectedColor);
     root.style.setProperty('--tw-color-utility-brand-700_alt', selectedColor);
-    root.style.setProperty(
-      '--tw-color-bg-brand-solid_hover',
-      colorToGradient(selectedColor)
-    );
-    root.style.setProperty(
-      '--tw-color-bg-brand-section_subtle',
-      colorToGradient(selectedColor)
-    );
+    root.style.setProperty('--tw-color-bg-brand-solid_hover', selectedColor);
+    root.style.setProperty('--tw-color-bg-brand-section_subtle', selectedColor);
     root.style.setProperty('--tw-color-fg-brand-secondary', selectedColor);
     root.style.setProperty('--tw-color-fg-brand-secondary_alt', selectedColor);
     root.style.setProperty('--tw-color-text-brand-secondary', selectedColor);
     root.style.setProperty('--tw-color-border-brand', selectedColor);
     root.style.setProperty(
       '--tw-background-color-brand-solid_hover',
-      colorToGradient(selectedColor)
+      selectedColor
     );
     root.style.setProperty(
       '--tw-background-color-brand-section_subtle',
-      colorToGradient(selectedColor)
+      selectedColor
     );
     root.style.setProperty('--tw-background-color-border-brand', selectedColor);
     root.style.setProperty('--tw-text-color-brand-secondary', selectedColor);
@@ -168,14 +155,8 @@ const applyBrandCssVars = (colors: BrandColors, root: HTMLElement) => {
     root.style.setProperty('--tw-color-brand-100', hoverColor);
     root.style.setProperty('--tw-color-utility-brand-100', hoverColor);
     root.style.setProperty('--tw-color-utility-brand-100_alt', hoverColor);
-    root.style.setProperty(
-      '--tw-color-bg-brand-secondary',
-      colorToGradient(hoverColor)
-    );
-    root.style.setProperty(
-      '--tw-background-color-brand-secondary',
-      colorToGradient(hoverColor)
-    );
+    root.style.setProperty('--tw-color-bg-brand-secondary', hoverColor);
+    root.style.setProperty('--tw-background-color-brand-secondary', hoverColor);
     root.style.setProperty('--tw-color-text-secondary_on-brand', hoverColor);
     root.style.setProperty('--tw-color-text-tertiary_on-brand', hoverColor);
     root.style.setProperty('--tw-color-icon-fg-brand_on-brand', hoverColor);
@@ -188,15 +169,9 @@ const applyBrandCssVars = (colors: BrandColors, root: HTMLElement) => {
     root.style.setProperty('--tw-color-error-600', errorColor);
     root.style.setProperty('--tw-color-utility-error-600', errorColor);
     root.style.setProperty('--tw-color-fg-error-primary', errorColor);
-    root.style.setProperty(
-      '--tw-color-bg-error-solid',
-      colorToGradient(errorColor)
-    );
+    root.style.setProperty('--tw-color-bg-error-solid', errorColor);
     root.style.setProperty('--tw-color-text-error-primary', errorColor);
-    root.style.setProperty(
-      '--tw-background-color-error-solid',
-      colorToGradient(errorColor)
-    );
+    root.style.setProperty('--tw-background-color-error-solid', errorColor);
     root.style.setProperty('--tw-text-color-error-primary', errorColor);
     root.style.setProperty(
       '--tw-color-featured-icon-light-fg-error',
@@ -208,15 +183,9 @@ const applyBrandCssVars = (colors: BrandColors, root: HTMLElement) => {
     root.style.setProperty('--tw-color-success-600', successColor);
     root.style.setProperty('--tw-color-utility-success-600', successColor);
     root.style.setProperty('--tw-color-fg-success-primary', successColor);
-    root.style.setProperty(
-      '--tw-color-bg-success-solid',
-      colorToGradient(successColor)
-    );
+    root.style.setProperty('--tw-color-bg-success-solid', successColor);
     root.style.setProperty('--tw-color-text-success-primary', successColor);
-    root.style.setProperty(
-      '--tw-background-color-success-solid',
-      colorToGradient(successColor)
-    );
+    root.style.setProperty('--tw-background-color-success-solid', successColor);
     root.style.setProperty('--tw-text-color-success-primary', successColor);
     root.style.setProperty(
       '--tw-color-featured-icon-light-fg-success',
@@ -228,15 +197,9 @@ const applyBrandCssVars = (colors: BrandColors, root: HTMLElement) => {
     root.style.setProperty('--tw-color-warning-600', warningColor);
     root.style.setProperty('--tw-color-utility-warning-600', warningColor);
     root.style.setProperty('--tw-color-fg-warning-primary', warningColor);
-    root.style.setProperty(
-      '--tw-color-bg-warning-solid',
-      colorToGradient(warningColor)
-    );
+    root.style.setProperty('--tw-color-bg-warning-solid', warningColor);
     root.style.setProperty('--tw-color-text-warning-primary', warningColor);
-    root.style.setProperty(
-      '--tw-background-color-warning-solid',
-      colorToGradient(warningColor)
-    );
+    root.style.setProperty('--tw-background-color-warning-solid', warningColor);
     root.style.setProperty('--tw-text-color-warning-primary', warningColor);
     root.style.setProperty(
       '--tw-color-featured-icon-light-fg-warning',
