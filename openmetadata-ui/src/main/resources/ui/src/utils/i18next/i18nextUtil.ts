@@ -35,7 +35,7 @@ export const getInitOptions = (): InitOptions => {
     },
     interpolation: {
       escapeValue: false,
-      defaultVariables: { brandName: process.env.BRAND_NAME ?? 'OpenMetadata' },
+      defaultVariables: { brandName: process.env.BRAND_NAME ?? 'LingLongPagoda' },
     },
     missingKeyHandler: (_lngs, _ns, key) =>
       // eslint-disable-next-line no-console

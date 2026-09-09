@@ -81,6 +81,7 @@ const injectCriticalPreloads = (): Plugin => {
 
 export default defineConfig(async ({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '');
+  const brandName = env.BRAND_NAME || 'LingLongPagoda';
 
   // rollup-plugin-visualizer is ESM-only; CJS-import would crash Vite's config
   // loader. Dynamic-import only when we actually want it (analyze mode), so the
@@ -140,7 +141,8 @@ export default defineConfig(async ({ mode }) => {
             .replaceAll(
               /(<img[^>]*src=["'])(\.\/)?images\//g,
               '$1${basePath}images/'
-            );
+            )
+            .replaceAll('__BRAND_NAME__', brandName);
         },
       },
       tailwindcss(),
@@ -489,9 +491,7 @@ export default defineConfig(async ({ mode }) => {
     define: {
       'import.meta.env.PW_E2E_BUILD': JSON.stringify(isPlaywrightBuild),
       'process.env.NODE_ENV': JSON.stringify(mode),
-      'process.env.BRAND_NAME': JSON.stringify(
-        env.BRAND_NAME || 'OpenMetadata'
-      ),
+      'process.env.BRAND_NAME': JSON.stringify(brandName),
       global: 'globalThis',
     },
   };
