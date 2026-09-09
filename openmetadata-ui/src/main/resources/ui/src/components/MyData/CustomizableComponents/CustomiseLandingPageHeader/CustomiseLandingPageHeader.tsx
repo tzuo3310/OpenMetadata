@@ -19,12 +19,10 @@ import {
   Suspense,
   useCallback,
   useEffect,
-  useMemo,
   useState,
 } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ReactComponent as FilterIcon } from '../../../../assets/svg/filter.svg';
-import LandingPageBg from '../../../../assets/svg/landing-page-header-bg.svg';
 import { DEFAULT_HEADER_BG_COLOR } from '../../../../constants/Mydata.constants';
 import { useApplicationStore } from '../../../../hooks/useApplicationStore';
 import {
@@ -95,14 +93,6 @@ const CustomiseLandingPageHeader = ({
   const bgColor =
     backgroundColor || adminPanelBackgroundColor || DEFAULT_HEADER_BG_COLOR;
 
-  const landingPageStyle = useMemo(
-    () => ({
-      backgroundImage: `url(${LandingPageBg})`,
-      backgroundColor: bgColor,
-    }),
-    [bgColor]
-  );
-
   const fetchAnnouncements = useCallback(async () => {
     try {
       setInternalIsAnnouncementLoading(true);
@@ -141,7 +131,7 @@ const CustomiseLandingPageHeader = ({
     <div
       className="customise-landing-page-header"
       data-testid={dataTestId}
-      style={landingPageStyle}>
+      style={{ background: bgColor }}>
       <div className="header-container">
         <div className="dashboard-header">
           <div

@@ -191,7 +191,8 @@ describe('CustomiseLandingPageHeader', () => {
       render(<CustomiseLandingPageHeader dataTestId={TEST_ID} />);
 
       expect(screen.getByTestId(TEST_ID)).toHaveStyle({
-        backgroundBlendMode: 'overlay',
+        backgroundImage:
+          'linear-gradient(221.19deg, #0017E4 -17.4%, #3793FF 112.31%)',
       });
     });
   });
