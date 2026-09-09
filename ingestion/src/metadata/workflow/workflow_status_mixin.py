@@ -12,6 +12,7 @@
 Add methods to the workflows for updating the IngestionPipeline status
 """
 
+import time
 import traceback
 import uuid
 from datetime import datetime
@@ -139,9 +140,30 @@ class WorkflowStatusMixin:
 
                 pipeline_status = self.update_pipeline_status_metadata(pipeline_status)
 
-                self.metadata.create_or_update_pipeline_status(
-                    self.ingestion_pipeline.fullyQualifiedName.root, pipeline_status
-                )
+                # The final status push is what flips the pipeline out of the
+                # "in progress" state the UI shows. Retry a few times so a
+                # transient server/network error cannot leave the run stuck.
+                last_exc: Optional[Exception] = None
+                for attempt in range(1, 4):
+                    try:
+                        self.metadata.create_or_update_pipeline_status(
+                            self.ingestion_pipeline.fullyQualifiedName.root, pipeline_status
+                        )
+                        break
+                    except Exception as exc:
+                        last_exc = exc
+                        logger.debug(
+                            "Failed to persist pipeline status (attempt %s/3): %s",
+                            attempt,
+                            exc,
+                        )
+                        if attempt < 3:
+                            time.sleep(min(2 * attempt, 6))
+                else:
+                    logger.error(
+                        "Gave up persisting ingestion pipeline status after 3 attempts: %s",
+                        last_exc,
+                    )
         except Exception as err:
             logger.debug(traceback.format_exc())
             logger.error(f"Unhandled error trying to update Ingestion Pipeline status [{err}]")

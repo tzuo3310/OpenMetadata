@@ -12,6 +12,7 @@
 Mixin class for sending progress updates and operation metrics to OpenMetadata server.
 """
 
+import time
 from typing import Optional
 
 from metadata.generated.schema.entity.services.ingestionPipelines.operationMetrics import (
@@ -51,19 +52,35 @@ class OMetaProgressMixin:
         """
         Send a progress update to the OpenMetadata server.
 
+        The closing update of a run (PIPELINE_COMPLETE / ERROR) is the signal the
+        UI relies on to stop rendering the live "in progress" progress bar. A
+        single dropped request would leave the UI stuck on the last percentage,
+        so this retries a few times before giving up.
+
         Args:
             pipeline_fqn: Fully qualified name of the ingestion pipeline
             run_id: UUID of the current pipeline run
             update: ProgressUpdate object with current progress state
         """
-        try:
-            encoded_fqn = pipeline_fqn.replace("/", "%2F")
-            self.client.put(
-                f"/services/ingestionPipelines/progress/{encoded_fqn}/{run_id}",
-                update.model_dump_json(exclude_none=True),
-            )
-        except Exception as exc:
-            logger.debug("Failed to send progress update: %s%s", exc, error_detail(exc))
+        encoded_fqn = pipeline_fqn.replace("/", "%2F")
+        payload = update.model_dump_json(exclude_none=True)
+        for attempt in range(1, 4):
+            try:
+                self.client.put(
+                    f"/services/ingestionPipelines/progress/{encoded_fqn}/{run_id}",
+                    payload,
+                )
+                return
+            except Exception as exc:
+                logger.debug(
+                    "Failed to send progress update (attempt %s/3): %s%s",
+                    attempt,
+                    exc,
+                    error_detail(exc),
+                )
+                if attempt < 3:
+                    time.sleep(min(2 * attempt, 6))
+        logger.warning("Gave up sending progress update for run %s after 3 attempts", run_id)
 
     def send_operation_metrics_batch(self, pipeline_fqn: str, run_id: str, batch: OperationMetricsBatch) -> None:
         """

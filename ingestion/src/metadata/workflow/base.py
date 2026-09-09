@@ -339,16 +339,23 @@ class BaseWorkflow(ABC, WorkflowStatusMixin):
                 self.close_steps()
             except Exception:
                 logger.debug("close_steps failed", exc_info=True)
+            # `build_ingestion_status` walks every step to assemble the run
+            # summary. If it raises, the rest of the emitters below must still
+            # run: a failed summary must never suppress the terminal pipeline
+            # state and the closing ProgressUpdate that unblocks the UI.
             try:
                 ingestion_status = self.build_ingestion_status()
-                try:
-                    self.set_ingestion_pipeline_status(pipeline_state, ingestion_status)
-                finally:
-                    self.send_progress_update(self.terminal_progress_update_type(pipeline_state))
-                try:
-                    self.print_status()
-                finally:
-                    self.stop()
+            except Exception:
+                logger.warning("Failed to build ingestion status summary", exc_info=True)
+                ingestion_status = None
+            try:
+                self.set_ingestion_pipeline_status(pipeline_state, ingestion_status)
+            finally:
+                self.send_progress_update(self.terminal_progress_update_type(pipeline_state))
+            try:
+                self.print_status()
+            finally:
+                self.stop()
             finally:
                 # Must run after every other emitter so the tail is captured.
                 cleanup_streamable_logging()
