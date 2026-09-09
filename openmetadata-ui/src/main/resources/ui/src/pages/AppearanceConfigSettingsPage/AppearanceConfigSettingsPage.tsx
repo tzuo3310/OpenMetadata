@@ -22,6 +22,7 @@ import {
   Space,
   Typography,
 } from 'antd';
+import { RuleObject } from 'antd/lib/form';
 import { AxiosError } from 'axios';
 import { startCase, toString } from 'lodash';
 import { useEffect, useMemo, useRef, useState } from 'react';
@@ -293,6 +294,31 @@ const AppearanceConfigSettingsPage = () => {
     },
   ];
 
+  // Logo URL fields accept a same-origin relative path (e.g. "/logo.svg" served
+  // from the UI's public/ folder) or a fully-qualified URL. The previous
+  // `type: 'url'` rule rejected relative paths even though <img src> renders
+  // them, blocking valid custom-logo setups in dev.
+  const logoUrlRules = (entityLabel: string) => [
+    {
+      validator: (_: RuleObject, value: string) => {
+        if (!value || value.startsWith('/')) {
+          return Promise.resolve();
+        }
+        try {
+          void new URL(value);
+
+          return Promise.resolve();
+        } catch {
+          return Promise.reject(
+            new Error(
+              t('message.entity-is-not-valid-url', { entity: entityLabel })
+            )
+          );
+        }
+      },
+    },
+  ];
+
   const customLogoFormFields: FieldProp[] = [
     {
       name: 'customLogoUrlPath',
@@ -305,14 +331,7 @@ const AppearanceConfigSettingsPage = () => {
         'data-testid': 'customLogoUrlPath',
         autoFocus: true,
       },
-      rules: [
-        {
-          type: 'url',
-          message: t('message.entity-is-not-valid-url', {
-            entity: t('label.logo-url'),
-          }),
-        },
-      ],
+      rules: logoUrlRules(t('label.logo-url')),
     },
     {
       name: 'customMonogramUrlPath',
@@ -324,14 +343,7 @@ const AppearanceConfigSettingsPage = () => {
       props: {
         'data-testid': 'customMonogramUrlPath',
       },
-      rules: [
-        {
-          type: 'url',
-          message: t('message.entity-is-not-valid-url', {
-            entity: t('label.monogram-url'),
-          }),
-        },
-      ],
+      rules: logoUrlRules(t('label.monogram-url')),
     },
     {
       name: 'customFaviconUrlPath',
@@ -343,14 +355,7 @@ const AppearanceConfigSettingsPage = () => {
       props: {
         'data-testid': 'customFaviconUrlPath',
       },
-      rules: [
-        {
-          type: 'url',
-          message: t('message.entity-is-not-valid-url', {
-            entity: t('label.favicon-url'),
-          }),
-        },
-      ],
+      rules: logoUrlRules(t('label.favicon-url')),
     },
   ];
 
