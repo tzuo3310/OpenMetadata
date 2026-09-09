@@ -80,6 +80,40 @@ describe('DeploymentSummaryCard', () => {
     ).not.toBeInTheDocument();
   });
 
+  it('treats never-run (none) agents as outside the deployment so a service with un-deployed agents is not stranded on "deploying"', () => {
+    // Mirrors the real failure: 3 finished agents and 2 that were never run
+    // (status 'none'). totalAgents reflects the full pipeline count (incl. the
+    // 'none' ones); counting them as unfinished used to keep the banner on
+    // "deploying" forever even with 0 agents running.
+    render(
+      <DeploymentSummaryCard
+        agents={[
+          buildAgent({ status: 'success', assets: 799 }),
+          buildAgent({
+            id: 'agent-2',
+            fqn: 'service.agent-2',
+            status: 'success',
+          }),
+          buildAgent({
+            id: 'agent-3',
+            fqn: 'service.agent-3',
+            status: 'success',
+          }),
+          buildAgent({ id: 'agent-4', fqn: 'service.agent-4', status: 'none' }),
+          buildAgent({ id: 'agent-5', fqn: 'service.agent-5', status: 'none' }),
+        ]}
+        totalAgents={5}
+      />
+    );
+
+    expect(screen.getByTestId('deployment-summary-title')).toHaveTextContent(
+      'label.deployment-complete'
+    );
+    expect(
+      screen.queryByTestId('deployment-progress-bar')
+    ).not.toBeInTheDocument();
+  });
+
   it('should take the newest Metadata run rather than summing the agents', () => {
     render(
       <DeploymentSummaryCard

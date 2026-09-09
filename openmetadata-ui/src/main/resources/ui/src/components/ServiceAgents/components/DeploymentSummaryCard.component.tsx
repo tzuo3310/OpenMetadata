@@ -67,9 +67,16 @@ const DeploymentSummaryCard: FC<DeploymentSummaryCardProps> = ({
   // Agents with status 'none' have never run — they are not part of any
   // deployment and must not surface as queued/in-progress in the banner.
   const activeAgents = agents.filter((a) => a.status !== 'none');
-  // Denominator counts the agents this page cannot see; the render gate below stays on the page's own
-  // active agents, so a service whose agents have all never run still shows nothing.
-  const total = Math.max(activeAgents.length, totalAgents ?? 0);
+  // Denominator for "deployment complete": agents that are actually part of the
+  // deployment. Agents with status 'none' have never run (see the activeAgents
+  // filter above — they "must not surface as queued/in-progress") and must not
+  // be counted as unfinished here, or every service with an un-deployed agent is
+  // stranded on "deploying" forever even when 0 agents are running. The page's
+  // visible 'none' agents are already excluded by activeAgents; any pipeline
+  // outside the current page is assumed deployed-but-unconfirmed, preserving the
+  // prior pagination behavior (agents outside the page count as unfinished).
+  const unknownOutsidePage = Math.max((totalAgents ?? 0) - agents.length, 0);
+  const total = activeAgents.length + unknownOutsidePage;
   const running = activeAgents.filter((a) => a.status === 'running').length;
   const done = activeAgents.filter((a) => a.status === 'success').length;
   const failed = activeAgents.filter((a) => a.status === 'failed').length;
