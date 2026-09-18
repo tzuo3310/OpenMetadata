@@ -103,8 +103,8 @@ const DataQualityDashboard = ({
                       owner={filter.selectedOwners}
                       popoverProps={{ placement: 'bottomLeft' }}
                       onUpdate={filter.onChange}>
-                      <div
-                        className="tw:flex tw:items-center tw:gap-1  tw:rounded-md quick-filter-dropdown-trigger-btn"
+                      <span
+                        className="tw:flex tw:items-center tw:gap-1 tw:rounded-md quick-filter-dropdown-trigger-btn"
                         data-testid={`search-dropdown-${filter.key}`}
                         title={
                           filter.selectedOwnerKeys.length > 0
@@ -114,7 +114,7 @@ const DataQualityDashboard = ({
                               )
                             : undefined
                         }>
-                        <div className="tw:flex tw:items-center tw:gap-0">
+                        <span className="tw:flex tw:items-center tw:gap-0">
                           <span>{filter.label}</span>
                           {filter.selectedOwnerKeys.length > 0 && (
                             <span>
@@ -126,13 +126,13 @@ const DataQualityDashboard = ({
                               </span>
                             </span>
                           )}
-                        </div>
+                        </span>
                         <DropDownIcon
                           className="flex self-center"
                           height={12}
                           width={12}
                         />
-                      </div>
+                      </span>
                     </UserTeamSelectableList>
                   </TooltipTrigger>
                 </Tooltip>

@@ -11,11 +11,7 @@
  *  limitations under the License.
  */
 
-import {
-  ButtonUtility,
-  Tooltip,
-  TooltipTrigger,
-} from '@openmetadata/ui-core-components';
+import { ButtonUtility, Tooltip } from '@openmetadata/ui-core-components';
 import { FunctionComponent } from 'react';
 import type { Placement } from 'react-aria';
 import { useTranslation } from 'react-i18next';
@@ -51,13 +47,11 @@ export const CopyToClipboardButton: FunctionComponent<Props> = ({
           ? t('message.copied-to-clipboard')
           : t('message.copy-to-clipboard')
       }>
-      <TooltipTrigger>
-        <ButtonUtility
-          data-testid="copy-secret"
-          icon={<CopyIcon data-testid="copy-icon" width="16" />}
-          onClick={() => onCopyToClipBoard(copyText)}
-        />
-      </TooltipTrigger>
+      <ButtonUtility
+        data-testid="copy-secret"
+        icon={<CopyIcon data-testid="copy-icon" width="16" />}
+        onClick={() => onCopyToClipBoard(copyText)}
+      />
     </Tooltip>
   );
 };

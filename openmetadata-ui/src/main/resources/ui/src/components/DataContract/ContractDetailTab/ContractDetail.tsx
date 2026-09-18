@@ -19,8 +19,6 @@ import {
   Card,
   Divider,
   Dropdown,
-  Tooltip,
-  TooltipTrigger,
   Typography,
 } from '@openmetadata/ui-core-components';
 import {
@@ -326,23 +324,19 @@ const ContractDetail: React.FC<{
               </div>
               {(contract as ContractWithInheritance & { inherited?: boolean })
                 .inherited && (
-                <Tooltip
-                  title={t('label.inherited-entity', {
-                    entity: t('label.contract'),
-                  })}>
-                  <TooltipTrigger>
-                    <ButtonUtility
-                      color="tertiary"
-                      icon={
-                        <InheritIcon
-                          className="inherit-icon cursor-pointer"
-                          width={16}
-                        />
-                      }
-                      size="sm"
+                <ButtonUtility
+                  color="tertiary"
+                  icon={
+                    <InheritIcon
+                      className="inherit-icon cursor-pointer"
+                      width={16}
                     />
-                  </TooltipTrigger>
-                </Tooltip>
+                  }
+                  size="sm"
+                  tooltip={t('label.inherited-entity', {
+                    entity: t('label.contract'),
+                  })}
+                />
               )}
             </Box>
             <Box align="center" gap={3}>
@@ -713,23 +707,19 @@ const ContractDetail: React.FC<{
                 }
 
                 const inheritedIcon = isInherited ? (
-                  <Tooltip
-                    title={t('label.inherited-entity', {
-                      entity: t('label.terms-of-service'),
-                    })}>
-                    <TooltipTrigger>
-                      <ButtonUtility
-                        color="tertiary"
-                        icon={
-                          <InheritIcon
-                            className="inherit-icon cursor-pointer"
-                            width={16}
-                          />
-                        }
-                        size="sm"
+                  <ButtonUtility
+                    color="tertiary"
+                    icon={
+                      <InheritIcon
+                        className="inherit-icon cursor-pointer"
+                        width={16}
                       />
-                    </TooltipTrigger>
-                  </Tooltip>
+                    }
+                    size="sm"
+                    tooltip={t('label.inherited-entity', {
+                      entity: t('label.terms-of-service'),
+                    })}
+                  />
                 ) : null;
 
                 return (
@@ -778,23 +768,19 @@ const ContractDetail: React.FC<{
               {!isEmpty(contract.security) &&
                 (() => {
                   const inheritedIcon = contract.security?.inherited ? (
-                    <Tooltip
-                      title={t('label.inherited-entity', {
-                        entity: t('label.security'),
-                      })}>
-                      <TooltipTrigger>
-                        <ButtonUtility
-                          color="tertiary"
-                          icon={
-                            <InheritIcon
-                              className="inherit-icon cursor-pointer"
-                              width={16}
-                            />
-                          }
-                          size="sm"
+                    <ButtonUtility
+                      color="tertiary"
+                      icon={
+                        <InheritIcon
+                          className="inherit-icon cursor-pointer"
+                          width={16}
                         />
-                      </TooltipTrigger>
-                    </Tooltip>
+                      }
+                      size="sm"
+                      tooltip={t('label.inherited-entity', {
+                        entity: t('label.security'),
+                      })}
+                    />
                   ) : null;
 
                   return (

@@ -11,17 +11,13 @@
  *  limitations under the License.
  */
 
-import {
-  Button,
-  Tooltip,
-  TooltipTrigger,
-} from '@openmetadata/ui-core-components';
+import { Button, Tooltip } from '@openmetadata/ui-core-components';
 import { AxiosError } from 'axios';
 import classNames from 'classnames';
 import { Operation } from 'fast-json-patch';
 import { useCallback, useState } from 'react';
+import { Link } from 'react-aria-components';
 import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
 import { ReactComponent as IconEdit } from '../../../assets/svg/edit-new.svg';
 import { DE_ACTIVE_COLOR } from '../../../constants/constants';
 import { EntityType } from '../../../enums/entity.enum';
@@ -138,27 +134,23 @@ export const EntityTitleSection = ({
           placement={tooltipPlacement}
           title={getTextFromHtmlString(entityName)}
           trigger="hover">
-          <TooltipTrigger className="tw:max-w-[75%]">
-            <Link
-              className="tw:min-w-0 tw:overflow-hidden tw:text-sm tw:font-semibold tw:truncate tw:no-underline tw:text-blue-700 tw:block"
-              data-testid={testId}
-              to={linkHref}>
-              {stringToHTML(entityName)}
-            </Link>
-          </TooltipTrigger>
+          <Link
+            className="tw:max-w-[75%] tw:min-w-0 tw:overflow-hidden tw:text-sm tw:font-semibold tw:truncate tw:no-underline tw:text-blue-700 tw:block"
+            data-testid={testId}
+            href={linkHref}>
+            {stringToHTML(entityName)}
+          </Link>
         </Tooltip>
         {hasEditPermission && entityType && entityDetails.id && (
           <Tooltip placement="top" title={t('label.edit')}>
-            <TooltipTrigger>
-              <Button
-                color="tertiary"
-                data-testid="edit-displayName-button"
-                iconLeading={
-                  <IconEdit color={DE_ACTIVE_COLOR} height={16} width={16} />
-                }
-                onClick={() => setIsEditModalOpen(true)}
-              />
-            </TooltipTrigger>
+            <Button
+              color="tertiary"
+              data-testid="edit-displayName-button"
+              iconLeading={
+                <IconEdit color={DE_ACTIVE_COLOR} height={16} width={16} />
+              }
+              onClick={() => setIsEditModalOpen(true)}
+            />
           </Tooltip>
         )}
       </div>

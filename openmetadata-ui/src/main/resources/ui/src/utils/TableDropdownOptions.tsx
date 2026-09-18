@@ -12,11 +12,9 @@
  */
 
 import type { NavigateFunction } from 'react-router-dom';
-import { ReactComponent as ExportIcon } from '../assets/svg/ic-export.svg';
 import { ReactComponent as ImportIcon } from '../assets/svg/ic-import.svg';
 import { ManageButtonItemLabel } from '../components/common/ManageButtonContentItem/ManageButtonContentItem.component';
-import { useEntityExportModalProvider } from '../components/Entity/EntityExportModalProvider/EntityExportModalProvider.component';
-import { ExportTypes } from '../constants/Export.constants';
+import { ExportEntityButtonItem } from '../components/Entity/EntityExportModalProvider/ExportEntityButtonItem.component';
 import type { OperationPermission } from '../context/PermissionProvider/PermissionProvider.interface';
 import { EntityType } from '../enums/entity.enum';
 import LimitWrapper from '../hoc/LimitWrapper';
@@ -30,7 +28,6 @@ export const ExtraTableDropdownOptions = (
   deleted: boolean,
   navigate: NavigateFunction
 ) => {
-  const { showModal } = useEntityExportModalProvider();
   const { ViewAll, EditAll } = permission;
 
   return [
@@ -60,20 +57,12 @@ export const ExtraTableDropdownOptions = (
       ? [
           {
             label: (
-              <ManageButtonItemLabel
+              <ExportEntityButtonItem
                 description={t('message.export-entity-help', {
                   entity: t('label.table'),
                 })}
-                icon={ExportIcon}
-                id="export-button"
-                name={t('label.export')}
-                onClick={() =>
-                  showModal({
-                    name: fqn,
-                    onExport: exportTableDetailsInCSV,
-                    exportTypes: [ExportTypes.CSV],
-                  })
-                }
+                fqn={fqn}
+                onExport={exportTableDetailsInCSV}
               />
             ),
             key: 'export-button',

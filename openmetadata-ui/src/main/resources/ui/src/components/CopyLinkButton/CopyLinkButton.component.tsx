@@ -10,11 +10,7 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-import {
-  ButtonUtility,
-  Tooltip,
-  TooltipTrigger,
-} from '@openmetadata/ui-core-components';
+import { ButtonUtility, Tooltip } from '@openmetadata/ui-core-components';
 import { Check } from '@untitledui/icons';
 import classNames from 'classnames';
 import { FC, ReactNode } from 'react';
@@ -45,37 +41,35 @@ const CopyLinkButton: FC<CopyLinkButtonProps> = ({
 
   return (
     <Tooltip isDisabled={hasCopied} title={resolvedTooltip}>
-      <TooltipTrigger>
-        <ButtonUtility
-          className={classNames(
-            hasCopied ? 'tw:rounded-full' : 'tw:rounded-md',
-            hasCopied &&
-              'tw:bg-success-solid tw:text-fg-white tw:after:outline-0 tw:shadow-none tw:hover:bg-success-solid tw:hover:text-fg-white',
-            className
-          )}
-          color={color}
-          data-testid={testId}
-          icon={
-            hasCopied ? (
-              <>
-                <span
-                  aria-hidden="true"
-                  className="copy-link-ring-pulse tw:absolute tw:-inset-0.5 tw:rounded-full tw:border-2 tw:border-utility-success-500 tw:pointer-events-none"
-                />
-                <Check
-                  aria-hidden="true"
-                  className="tw:size-3"
-                  strokeWidth={2.6}
-                />
-              </>
-            ) : (
-              children
-            )
-          }
-          size="sm"
-          onClick={() => onCopyToClipBoard()}
-        />
-      </TooltipTrigger>
+      <ButtonUtility
+        className={classNames(
+          hasCopied ? 'tw:rounded-full' : 'tw:rounded-md',
+          hasCopied &&
+            'tw:bg-success-solid tw:text-fg-white tw:after:outline-0 tw:shadow-none tw:hover:bg-success-solid tw:hover:text-fg-white',
+          className
+        )}
+        color={color}
+        data-testid={testId}
+        icon={
+          hasCopied ? (
+            <>
+              <span
+                aria-hidden="true"
+                className="copy-link-ring-pulse tw:absolute tw:-inset-0.5 tw:rounded-full tw:border-2 tw:border-utility-success-500 tw:pointer-events-none"
+              />
+              <Check
+                aria-hidden="true"
+                className="tw:size-3"
+                strokeWidth={2.6}
+              />
+            </>
+          ) : (
+            children
+          )
+        }
+        size="sm"
+        onClick={() => onCopyToClipBoard()}
+      />
     </Tooltip>
   );
 };

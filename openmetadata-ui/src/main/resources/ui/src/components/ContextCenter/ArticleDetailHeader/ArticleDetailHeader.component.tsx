@@ -466,17 +466,15 @@ const ArticleDetailHeader: FC<ArticleDetailHeaderProps> = ({
       </Box>
 
       <Tooltip title={t('label.version-plural')}>
-        <TooltipTrigger>
-          <Button
-            className="tw:p-1.5"
-            color="secondary"
-            data-testid="version-btn"
-            iconLeading={<VersionIcon height={16} width={16} />}
-            size="sm"
-            onClick={handleVersionClick}>
-            {version}
-          </Button>
-        </TooltipTrigger>
+        <Button
+          className="tw:p-1.5"
+          color="secondary"
+          data-testid="version-btn"
+          iconLeading={<VersionIcon height={16} width={16} />}
+          size="sm"
+          onClick={handleVersionClick}>
+          {version}
+        </Button>
       </Tooltip>
 
       <ButtonUtility

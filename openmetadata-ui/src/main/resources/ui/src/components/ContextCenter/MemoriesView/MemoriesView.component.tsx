@@ -18,8 +18,6 @@ import {
   Dropdown,
   EmptyPlaceholder,
   Skeleton,
-  Tooltip,
-  TooltipTrigger,
   Typography,
 } from '@openmetadata/ui-core-components';
 import { FC, useMemo } from 'react';
@@ -293,17 +291,14 @@ const MemoryRow: FC<MemoryRowProps> = ({
             <CopyIcon aria-hidden="true" height={20} width={20} />
           </CopyLinkButton>
           {canActOnMemory && canEdit && onEditMemory && (
-            <Tooltip title={t('label.edit')}>
-              <TooltipTrigger>
-                <ButtonUtility
-                  color="tertiary"
-                  data-testid="edit-memory-btn"
-                  icon={<EditIcon height={20} width={20} />}
-                  size="sm"
-                  onClick={() => onEditMemory(memory)}
-                />
-              </TooltipTrigger>
-            </Tooltip>
+            <ButtonUtility
+              color="tertiary"
+              data-testid="edit-memory-btn"
+              icon={<EditIcon height={20} width={20} />}
+              size="sm"
+              tooltip={t('label.edit')}
+              onClick={() => onEditMemory(memory)}
+            />
           )}
           {canActOnMemory && canDelete && (
             <MemoryActions memory={memory} onDeleteMemory={onDeleteMemory} />

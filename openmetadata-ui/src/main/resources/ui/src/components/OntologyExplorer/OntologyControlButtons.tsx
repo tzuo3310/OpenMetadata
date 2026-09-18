@@ -11,11 +11,7 @@
  *  limitations under the License.
  */
 
-import {
-  Button,
-  Tooltip,
-  TooltipTrigger,
-} from '@openmetadata/ui-core-components';
+import { Button, Tooltip } from '@openmetadata/ui-core-components';
 import { RefreshCw01 } from '@untitledui/icons';
 import { FC, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -39,56 +35,48 @@ const OntologyControlButtons: FC<OntologyControlButtonsProps> = ({
 
   return (
     <div className="tw:flex tw:shrink-0 tw:flex-wrap-nowrap tw:items-center tw:gap-1">
-      <TooltipTrigger>
-        <Tooltip placement="top" title={t('label.fit-to-screen')}>
-          <Button
-            color="tertiary"
-            data-testid="fit-view"
-            iconLeading={<FitViewOptionsIcon height={20} width={20} />}
-            size="sm"
-            onClick={handleFitView}
-          />
-        </Tooltip>
-      </TooltipTrigger>
+      <Tooltip placement="top" title={t('label.fit-to-screen')}>
+        <Button
+          color="tertiary"
+          data-testid="fit-view"
+          iconLeading={<FitViewOptionsIcon height={20} width={20} />}
+          size="sm"
+          onClick={handleFitView}
+        />
+      </Tooltip>
       <div className="tw:h-6 tw:w-px tw:bg-gray-200" />
 
-      <TooltipTrigger>
-        <Tooltip placement="top" title={t('label.zoom-in')}>
-          <Button
-            color="tertiary"
-            data-testid="zoom-in"
-            iconLeading={<ZoomInIcon height={20} width={20} />}
-            size="sm"
-            onClick={onZoomIn}
-          />
-        </Tooltip>
-      </TooltipTrigger>
+      <Tooltip placement="top" title={t('label.zoom-in')}>
+        <Button
+          color="tertiary"
+          data-testid="zoom-in"
+          iconLeading={<ZoomInIcon height={20} width={20} />}
+          size="sm"
+          onClick={onZoomIn}
+        />
+      </Tooltip>
       <div className="tw:h-6 tw:w-px tw:bg-gray-200" />
-      <TooltipTrigger>
-        <Tooltip placement="top" title={t('label.zoom-out')}>
-          <Button
-            color="tertiary"
-            data-testid="zoom-out"
-            iconLeading={<ZoomOutIcon height={20} width={20} />}
-            size="sm"
-            onClick={onZoomOut}
-          />
-        </Tooltip>
-      </TooltipTrigger>
+      <Tooltip placement="top" title={t('label.zoom-out')}>
+        <Button
+          color="tertiary"
+          data-testid="zoom-out"
+          iconLeading={<ZoomOutIcon height={20} width={20} />}
+          size="sm"
+          onClick={onZoomOut}
+        />
+      </Tooltip>
       <div className="tw:h-6 tw:w-px tw:bg-gray-200" />
 
-      <TooltipTrigger>
-        <Tooltip placement="top" title={t('label.refresh')}>
-          <Button
-            color="tertiary"
-            data-testid="refresh"
-            iconLeading={<RefreshCw01 height={20} width={20} />}
-            isDisabled={isLoading}
-            size="sm"
-            onClick={onRefresh}
-          />
-        </Tooltip>
-      </TooltipTrigger>
+      <Tooltip placement="top" title={t('label.refresh')}>
+        <Button
+          color="tertiary"
+          data-testid="refresh"
+          iconLeading={<RefreshCw01 height={20} width={20} />}
+          isDisabled={isLoading}
+          size="sm"
+          onClick={onRefresh}
+        />
+      </Tooltip>
     </div>
   );
 };

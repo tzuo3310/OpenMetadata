@@ -17,7 +17,6 @@ import {
   Dropdown,
   Tabs,
   Tooltip,
-  TooltipTrigger,
   Typography,
 } from '@openmetadata/ui-core-components';
 import classNames from 'classnames';
@@ -382,14 +381,12 @@ const CustomControls: FC<{
       <Tooltip
         placement="top"
         title={t('label.edit-entity', { entity: t('label.lineage') })}>
-        <TooltipTrigger>
-          <Button
-            color={isEditMode ? 'primary' : 'secondary'}
-            data-testid="edit-lineage"
-            iconLeading={EditIcon}
-            onClick={toggleEditMode}
-          />
-        </TooltipTrigger>
+        <Button
+          color={isEditMode ? 'primary' : 'secondary'}
+          data-testid="edit-lineage"
+          iconLeading={EditIcon}
+          onClick={toggleEditMode}
+        />
       </Tooltip>
     ) : null;
   }, [
@@ -421,15 +418,13 @@ const CustomControls: FC<{
       <div className={classNames('tw:flex tw:w-full tw:justify-between')}>
         <div className="tw:flex tw:items-center tw:gap-4">
           <Tooltip placement="top" title={t('label.filter-plural')}>
-            <TooltipTrigger>
-              <Button
-                aria-label={t('label.filter-plural')}
-                color={filterSelectionActive ? 'primary' : 'secondary'}
-                data-testid="filters-button"
-                iconLeading={FilterLinesIcon}
-                onClick={toggleFilterSelection}
-              />
-            </TooltipTrigger>
+            <Button
+              aria-label={t('label.filter-plural')}
+              color={filterSelectionActive ? 'primary' : 'secondary'}
+              data-testid="filters-button"
+              iconLeading={FilterLinesIcon}
+              onClick={toggleFilterSelection}
+            />
           </Tooltip>
           {searchBarComponent}
         </div>
@@ -455,51 +450,31 @@ const CustomControls: FC<{
             onChange={setTimeFilter}
           />
           {lineageEditButton}
-          <Tooltip
-            placement="top"
-            title={
+          <ButtonUtility
+            data-testid="export-button"
+            disabled={isEditMode}
+            icon={DownloadIcon}
+            tooltip={
               activeTab === 'impact_analysis'
                 ? t('label.export-as-type', { type: t('label.csv') })
                 : t('label.export')
-            }>
-            <TooltipTrigger>
-              <ButtonUtility
-                aria-label={
-                  activeTab === 'impact_analysis'
-                    ? t('label.export-as-type', { type: t('label.csv') })
-                    : t('label.export')
-                }
-                data-testid="export-button"
-                disabled={isEditMode}
-                icon={DownloadIcon}
-                onClick={handleExportClick}
-              />
-            </TooltipTrigger>
-          </Tooltip>
+            }
+            onClick={handleExportClick}
+          />
           {settingsButton}
-          <Tooltip
-            placement="top"
-            title={
+          <ButtonUtility
+            icon={isFullScreen ? ExitFullScreenIcon : FullscreenIcon}
+            tooltip={
               isFullScreen
                 ? t('label.exit-full-screen')
                 : t('label.full-screen-view')
-            }>
-            <TooltipTrigger>
-              <ButtonUtility
-                aria-label={
-                  isFullScreen
-                    ? t('label.exit-full-screen')
-                    : t('label.full-screen-view')
-                }
-                icon={isFullScreen ? ExitFullScreenIcon : FullscreenIcon}
-                onClick={() =>
-                  updateURLParams({
-                    [FULLSCREEN_QUERY_PARAM_KEY]: !isFullScreen,
-                  })
-                }
-              />
-            </TooltipTrigger>
-          </Tooltip>
+            }
+            onClick={() =>
+              updateURLParams({
+                [FULLSCREEN_QUERY_PARAM_KEY]: !isFullScreen,
+              })
+            }
+          />
         </div>
       </div>
       {filterSelectionActive ? (

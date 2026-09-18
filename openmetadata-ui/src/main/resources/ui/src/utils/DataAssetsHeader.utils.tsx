@@ -12,14 +12,11 @@
  *  limitations under the License.
  */
 
-import {
-  Tooltip,
-  TooltipTrigger,
-  Typography,
-} from '@openmetadata/ui-core-components';
+import { Tooltip, Typography } from '@openmetadata/ui-core-components';
 import classNames from 'classnames';
 import { isArray, isEmpty, isObject, isUndefined } from 'lodash';
 import React, { ReactNode } from 'react';
+import { Link } from 'react-aria-components';
 import { ReactComponent as IconExternalLink } from '../assets/svg/external-links.svg';
 import {
   DataAssetHeaderInfo,
@@ -167,15 +164,13 @@ export const ExtraInfoLink = ({
     )}
     <div className="tw:flex tw:items-center tw:gap-1">
       <Tooltip placement="top" title={value}>
-        <TooltipTrigger className="tw:max-w-full tw:truncate">
-          <a
-            className="tw:truncate tw:text-sm tw:font-medium tw:text-brand-secondary tw:hover:text-brand-secondary_hover"
-            href={href}
-            rel={newTab ? 'noopener noreferrer' : undefined}
-            target={newTab ? '_blank' : undefined}>
-            {value}
-          </a>
-        </TooltipTrigger>
+        <Link
+          className="tw:max-w-full tw:truncate tw:text-sm tw:font-medium tw:text-brand-secondary tw:hover:text-brand-secondary_hover"
+          href={href}
+          rel={newTab ? 'noopener noreferrer' : undefined}
+          target={newTab ? '_blank' : undefined}>
+          {value}
+        </Link>
       </Tooltip>
       <IconExternalLink
         className="tw:text-fg-quaternary"

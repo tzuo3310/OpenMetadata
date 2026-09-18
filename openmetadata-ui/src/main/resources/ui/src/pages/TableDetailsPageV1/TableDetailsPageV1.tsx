@@ -319,19 +319,15 @@ const TableDetailsPageV1: React.FC = () => {
     [tableDetails?.tableType]
   );
 
-  // Lifted from above the useQuery block: depends on {@code tableDetails} so must come
-  // after the query is declared. Same shape as before.
   const extraDropdownContent = useMemo(
     () =>
-      tableDetails
-        ? entityUtilClassBase.getManageExtraOptions(
-            EntityType.TABLE,
-            tableFqn,
-            tablePermissions,
-            tableDetails,
-            navigate
-          )
-        : [],
+      entityUtilClassBase.getManageExtraOptions(
+        EntityType.TABLE,
+        tableFqn,
+        tablePermissions,
+        tableDetails ?? ({} as Table),
+        navigate
+      ),
     [tablePermissions, tableFqn, tableDetails, navigate]
   );
 

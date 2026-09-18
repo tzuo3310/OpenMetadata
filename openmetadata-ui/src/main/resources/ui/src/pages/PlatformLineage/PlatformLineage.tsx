@@ -10,12 +10,7 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-import {
-  ButtonUtility,
-  Grid,
-  Tooltip,
-  TooltipTrigger,
-} from '@openmetadata/ui-core-components';
+import { ButtonUtility, Grid } from '@openmetadata/ui-core-components';
 import { Expand05, Home02, Minimize02 } from '@untitledui/icons';
 import { Card, Select } from 'antd';
 import { DefaultOptionType } from 'antd/lib/select';
@@ -249,45 +244,35 @@ const PlatformLineage = () => {
           onSearch={debouncedSearch}
         />
         <div className="d-flex gap-2">
-          <Tooltip
-            placement="top"
-            title={t('label.export-as-type', {
+          <ButtonUtility
+            data-testid="export-button"
+            icon={DownloadIcon}
+            tooltip={t('label.export-as-type', {
               type: t('label.png-uppercase'),
-            })}>
-            <TooltipTrigger>
-              <ButtonUtility
-                data-testid="export-button"
-                icon={DownloadIcon}
-                onClick={handleExport}
-              />
-            </TooltipTrigger>
-          </Tooltip>
+            })}
+            onClick={handleExport}
+          />
           <ButtonUtility
             data-testid="lineage-config"
             icon={SettingsOutlined}
             onClick={handleSettingsClick}
           />
-          <Tooltip
-            placement="top"
-            title={
+          <ButtonUtility
+            icon={isFullScreen ? Minimize02 : Expand05}
+            tooltip={
               isFullScreen
                 ? t('label.exit-full-screen')
                 : t('label.full-screen-view')
-            }>
-            <TooltipTrigger>
-              <ButtonUtility
-                icon={isFullScreen ? Minimize02 : Expand05}
-                onClick={() =>
-                  navigate({
-                    search: QueryString.stringify({
-                      ...queryParams,
-                      [FULLSCREEN_QUERY_PARAM_KEY]: !isFullScreen,
-                    }),
-                  })
-                }
-              />
-            </TooltipTrigger>
-          </Tooltip>
+            }
+            onClick={() =>
+              navigate({
+                search: QueryString.stringify({
+                  ...queryParams,
+                  [FULLSCREEN_QUERY_PARAM_KEY]: !isFullScreen,
+                }),
+              })
+            }
+          />
         </div>
       </div>
     );
