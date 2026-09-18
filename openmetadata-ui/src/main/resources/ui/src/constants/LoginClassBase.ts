@@ -50,6 +50,12 @@ class LoginClassBase {
     return loginVideo;
   }
 
+  // 首帧占位图（可选）：默认不设置；部署方可在子类覆盖返回自定义 poster，
+  // 避免视频首帧解码前出现黑屏。
+  public getLoginPoster(): string | undefined {
+    return undefined;
+  }
+
   // (已移除: getLoginVideoPanelClassName / getLoginVideoCardClassName —
   //  全屏布局不再使用分栏视频卡片，相关渐变方法同步删除)
 }

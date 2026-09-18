@@ -11,7 +11,7 @@
  *  limitations under the License.
  */
 
-import { mockDatasetData } from '../constants/mockTourData.constants';
+import { mockSearchData } from '../constants/mockTourData.constants';
 import { EntityTabs } from '../enums/entity.enum';
 import { CurrentTourPageType } from '../enums/tour.enum';
 import i18n, { Transi18next } from './i18next/LocalUtil';
@@ -97,7 +97,7 @@ export const getTourSteps = ({
         />
       </p>
     ),
-    selector: `#search-card-${mockDatasetData.tableDetails.id}`,
+    selector: `#search-card-${mockSearchData.hits.hits[0]._id}`,
     stepInteraction: false,
   },
   {

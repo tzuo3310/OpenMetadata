@@ -35,8 +35,9 @@ import MyDataPage from '../MyDataPage/MyDataPage.component';
 import TableDetailsPageV1 from '../TableDetailsPageV1/TableDetailsPageV1';
 
 const TOUR_FEED_WIDGET_SELECTOR = '#feedWidgetData';
-// 从 mock 表 id 派生搜索卡片选择器，避免与 mock 数据脱节的硬编码 GUID
-const TOUR_SEARCH_CARD_SELECTOR = `#search-card-${mockDatasetData.tableDetails.id}`;
+// 搜索卡片 DOM id 的真实来源是搜索命中的 _id（见 SearchedData: id={`search-card-${_id}`}），
+// 故以同一来源派生，避免与 mock 数据脱节
+const TOUR_SEARCH_CARD_SELECTOR = `#search-card-${mockSearchData.hits.hits[0]._id}`;
 const REQUIRED_STABLE_LAYOUT_FRAMES = 3;
 const ELEMENT_POLL_INTERVAL_MS = 50;
 const TOUR_START_DELAY_MS = 300;
@@ -108,8 +109,11 @@ const waitForTourFeedWidget = (onReady: () => void) => {
   };
 };
 
+const MAX_ELEMENT_WAIT_MS = 5000;
+
 const waitForElement = (selector: string, onReady: () => void) => {
   let timeoutId = 0;
+  const deadline = Date.now() + MAX_ELEMENT_WAIT_MS;
 
   const check = () => {
     const element = document.querySelector(selector);
@@ -118,8 +122,11 @@ const waitForElement = (selector: string, onReady: () => void) => {
 
     if (element && rect && rect.width > 0 && rect.height > 0 && hasContent) {
       onReady();
-    } else {
+    } else if (Date.now() < deadline) {
       timeoutId = window.setTimeout(check, ELEMENT_POLL_INTERVAL_MS);
+    } else {
+      // 超时兜底：避免目标缺失时无限轮询、引导永不启动
+      onReady();
     }
   };
 
