@@ -66,8 +66,7 @@ class DocumentationLinksClassBase {
       DATA_DISCOVERY_DOCS: `${this.docsBaseURL}how-to-guides/data-discovery`,
       HOW_TO_GUIDE_DOCS: `${this.docsBaseURL}how-to-guides`,
       AUTO_CLASSIFICATION_DOCS: `${this.docsBaseURL}how-to-guides/data-governance/classification/auto`,
-      OMD_SLACK_LINK:
-        'https://join.slack.com/t/openmetadata/shared_invite/zt-1r1kv175f-9qM5eTB39MF6U2DBhZhWow',
+      OMD_SLACK_LINK: 'http://10.2.140.168:8090/',
       OMD_REPOSITORY_LINK: 'https://star-us.open-metadata.org/',
       TOTAL_DATA_ASSETS_WIDGET_DOCS: `${this.docsBaseURL}how-to-guides/data-insights/service-insights#total-data-assets`,
       DESCRIPTION_COVERAGE_WIDGET_DOCS: `${this.docsBaseURL}how-to-guides/data-insights/service-insights#description-coverage`,

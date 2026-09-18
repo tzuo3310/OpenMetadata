@@ -1932,6 +1932,8 @@
     "platform-service-client-unavailable": "عميل خدمة المنصة غير متوفر",
     "platform-type-lineage": "سلسلة بيانات {{platformType}}",
     "play": "تشغيل",
+    "please-enter-account": "请输入账号",
+    "please-enter-password": "请输入密码",
     "please-enter-entity-name": "الرجاء إدخال اسم {{entity}}",
     "please-enter-value": "الرجاء إدخال قيمة {{name}}",
     "please-password-type-first": "الرجاء كتابة كلمة المرور أولاً",

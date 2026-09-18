@@ -1932,6 +1932,8 @@
     "platform-service-client-unavailable": "プラットフォームサービスクライアントが利用できません",
     "platform-type-lineage": "{{platformType}}リネージ",
     "play": "再生",
+    "please-enter-account": "请输入账号",
+    "please-enter-password": "请输入密码",
     "please-enter-entity-name": "{{entity}}名を入力してください",
     "please-enter-value": "{{name}} の値を入力してください",
     "please-password-type-first": "先にパスワードを入力してください",

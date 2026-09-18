@@ -11,7 +11,7 @@
  *  limitations under the License.
  */
 
-export const URL_JOIN_SLACK = 'https://slack.open-metadata.org';
+export const URL_ONTOLOGY = 'http://10.2.140.168:8090/';
 export const URL_OPEN_METADATA_DOCS = 'https://docs.open-metadata.org/';
 export const URL_GITHUB_REPO = 'https://github.com/open-metadata/OpenMetadata';
 

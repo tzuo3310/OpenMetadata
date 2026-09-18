@@ -1932,6 +1932,8 @@
     "platform-service-client-unavailable": "平台服务客户端不可用",
     "platform-type-lineage": "{{platformType}} 血缘关系",
     "play": "玩",
+    "please-enter-account": "请输入账号",
+    "please-enter-password": "请输入密码",
     "please-enter-entity-name": "请输入{{entity}}名称",
     "please-enter-value": "请输入{{name}}值",
     "please-password-type-first": "请先输入密码",

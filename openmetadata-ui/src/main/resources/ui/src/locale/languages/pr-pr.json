@@ -1932,6 +1932,8 @@
     "platform-service-client-unavailable": "پلیٹ فارم سروس کلائنٹ دستیاب نہیں",
     "platform-type-lineage": "{{platformType}} شجره داده",
     "play": "پخش",
+    "please-enter-account": "请输入账号",
+    "please-enter-password": "请输入密码",
     "please-enter-entity-name": "ਕਿਰਪਾ ਕਰਕੇ {{entity}} ਦਾ ਨਾਮ ਦਰਜ ਕਰੋ",
     "please-enter-value": "لطفاً مقدار {{name}} را وارد کنید",
     "please-password-type-first": "لطفاً ابتدا رمز عبور را وارد کنید",

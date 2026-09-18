@@ -19,7 +19,7 @@ import { ReactComponent as IconVersionBlack } from '../assets/svg/version-black.
 import documentationLinksClassBase from '../utils/DocumentationLinksClassBase';
 
 import { ROUTES } from './constants';
-import { URL_JOIN_SLACK, URL_OM_RELEASE_UPDATES } from './URL.constants';
+import { URL_OM_RELEASE_UPDATES, URL_ONTOLOGY } from './URL.constants';
 
 export enum HELP_ITEMS_ENUM {
   TOUR = 'tour',
@@ -62,9 +62,9 @@ export const HELP_ITEMS = [
   },
   {
     key: HELP_ITEMS_ENUM.SLACK,
-    label: 'label.slack-support',
+    label: 'label.ontology',
     icon: IconSlackGrey,
-    link: URL_JOIN_SLACK,
+    link: URL_ONTOLOGY,
     isExternal: true,
   },
   {

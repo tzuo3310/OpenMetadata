@@ -11,6 +11,7 @@
  *  limitations under the License.
  */
 
+import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import { Button, Form, Input, Typography } from 'antd';
 import classNames from 'classnames';
 import {
@@ -180,10 +181,6 @@ const SignInPage = () => {
     setLoading(false);
   };
 
-  const onClickSignUp = () => {
-    navigate(ROUTES.REGISTER);
-  };
-
   const onClickForgotPassword = () => {
     navigate(ROUTES.FORGOT_PASSWORD);
   };
@@ -195,7 +192,7 @@ const SignInPage = () => {
           className={classNames('login-box', {
             'sso-container': !isAuthProviderBasic,
           })}>
-          <BrandImage isMonoGram height={50} width={50} />
+          <BrandImage isMonoGram height={39} width={39} />
           <Typography.Title className="header-text display-sm" level={3}>
             {t('label.welcome-to')} {brandName}
           </Typography.Title>
@@ -209,7 +206,6 @@ const SignInPage = () => {
                 onFinish={handleSubmit}>
                 <Form.Item
                   data-testid="email"
-                  label={t('label.email')}
                   name="email"
                   rules={[
                     { required: true },
@@ -224,32 +220,29 @@ const SignInPage = () => {
                   <Input
                     autoFocus
                     className="input-field"
-                    placeholder={t('label.email')}
+                    placeholder={t('label.please-enter-account')}
+                    prefix={<UserOutlined />}
                   />
                 </Form.Item>
                 <Form.Item
                   data-testid="password"
-                  label={
-                    <>
-                      <Typography.Text className="mr-1">
-                        {t('label.password')}
-                      </Typography.Text>
-                      <Typography.Link
-                        className="forgot-password-link"
-                        data-testid="forgot-password"
-                        onClick={onClickForgotPassword}>
-                        {t('label.forgot-password')}
-                      </Typography.Link>
-                    </>
-                  }
                   name="password"
                   rules={[{ required: true }]}>
                   <Input.Password
                     autoComplete="off"
                     className="input-field"
-                    placeholder={t('label.password')}
+                    placeholder={t('label.please-enter-password')}
+                    prefix={<LockOutlined />}
                   />
                 </Form.Item>
+                <div className="forgot-password-row">
+                  <Typography.Link
+                    className="forgot-password-link"
+                    data-testid="forgot-password"
+                    onClick={onClickForgotPassword}>
+                    {t('label.forgot-password')}
+                  </Typography.Link>
+                </div>
 
                 <Button
                   block
@@ -263,26 +256,6 @@ const SignInPage = () => {
                   {t('label.sign-in')}
                 </Button>
               </Form>
-              {!isAuthProviderLDAP && (
-                <>
-                  {authConfig?.enableSelfSignup && (
-                    <div className="mt-4 d-flex flex-center signup-text">
-                      <Typography.Text>
-                        {t('message.new-to-the-platform')}
-                      </Typography.Text>
-                      <Button
-                        className="link-btn"
-                        data-testid="signup"
-                        type="link"
-                        onClick={onClickSignUp}>
-                        {t('label.create-entity', {
-                          entity: t('label.account'),
-                        })}
-                      </Button>
-                    </div>
-                  )}
-                </>
-              )}
             </div>
           ) : (
             <div className=" login-form">

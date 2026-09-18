@@ -1,6 +1,6 @@
 email:
   emailingEntity: ${OM_EMAIL_ENTITY:-"OpenMetadata"}
-  supportUrl: ${OM_SUPPORT_URL:-"https://slack.open-metadata.org"}
+  supportUrl: ${OM_SUPPORT_URL:-"http://10.2.140.168:8090/"}
   enableSmtpServer : ${AUTHORIZER_ENABLE_SMTP:-false}
   senderMail: ${OPENMETADATA_SMTP_SENDER_MAIL:-"sender@gmail.com"}
   serverEndpoint: ${SMTP_SERVER_ENDPOINT:-"smtp.gmail.com"}

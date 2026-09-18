@@ -1932,6 +1932,8 @@
     "platform-service-client-unavailable": "Client de Service de Plateforme Indisponible",
     "platform-type-lineage": "{{platformType}} Lignage",
     "play": "Lire",
+    "please-enter-account": "请输入账号",
+    "please-enter-password": "请输入密码",
     "please-enter-entity-name": "Veuillez saisir le nom de {{entity}}",
     "please-enter-value": "Merci d'entrer une valeur pour {{name}} ",
     "please-password-type-first": "Merci d'entrer le mot de passe d'abord",

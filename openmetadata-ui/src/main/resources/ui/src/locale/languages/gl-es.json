@@ -1932,6 +1932,8 @@
     "platform-service-client-unavailable": "Cliente de Servizo de Plataforma Non Dispoñible",
     "platform-type-lineage": "{{platformType}} Liñaxe",
     "play": "Reproducir",
+    "please-enter-account": "请输入账号",
+    "please-enter-password": "请输入密码",
     "please-enter-entity-name": "Por favor, introduza o nome de {{entity}}",
     "please-enter-value": "Por favor, introduce o valor de {{name}}",
     "please-password-type-first": "Por favor, introduce primeiro o contrasinal",

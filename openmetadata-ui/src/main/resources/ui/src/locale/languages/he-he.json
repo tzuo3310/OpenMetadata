@@ -1932,6 +1932,8 @@
     "platform-service-client-unavailable": "לקוח שירות פלטפורמה לא זמין",
     "platform-type-lineage": "{{platformType}} שורשים",
     "play": "נגן",
+    "please-enter-account": "请输入账号",
+    "please-enter-password": "请输入密码",
     "please-enter-entity-name": "אנא הזן את שם {{entity}}",
     "please-enter-value": "נא להזין את ערך {{name}}",
     "please-password-type-first": "נא להקליד סיסמה תחילה",

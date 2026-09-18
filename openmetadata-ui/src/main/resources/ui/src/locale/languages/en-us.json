@@ -1932,6 +1932,8 @@
     "platform-service-client-unavailable": "Platform Service Client Unavailable",
     "platform-type-lineage": "{{platformType}} Lineage",
     "play": "Play",
+    "please-enter-account": "Please enter account",
+    "please-enter-password": "Please enter password",
     "please-enter-entity-name": "Please enter {{entity}} name",
     "please-enter-value": "Please enter {{name}} value",
     "please-password-type-first": "Please type password first",

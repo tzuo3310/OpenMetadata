@@ -1932,6 +1932,8 @@
     "platform-service-client-unavailable": "Plattform-Service-Client nicht verfügbar",
     "platform-type-lineage": "{{platformType}} Abstammung",
     "play": "Abspielen",
+    "please-enter-account": "请输入账号",
+    "please-enter-password": "请输入密码",
     "please-enter-entity-name": "Bitte geben Sie den Namen von {{entity}} ein",
     "please-enter-value": "Bitte einen Wert für {{name}} eingeben",
     "please-password-type-first": "Bitte zuerst das Passwort eingeben",

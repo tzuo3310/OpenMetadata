@@ -106,9 +106,7 @@ describe('DocumentationLinksClassBase', () => {
     expect(docsURLs.HOW_TO_GUIDE_DOCS).toBe(
       'https://docs.open-metadata.org/latest/how-to-guides'
     );
-    expect(docsURLs.OMD_SLACK_LINK).toBe(
-      'https://join.slack.com/t/openmetadata/shared_invite/zt-1r1kv175f-9qM5eTB39MF6U2DBhZhWow'
-    );
+    expect(docsURLs.OMD_SLACK_LINK).toBe('http://10.2.140.168:8090/');
     expect(docsURLs.OMD_REPOSITORY_LINK).toBe(
       'https://star-us.open-metadata.org/'
     );
@@ -187,9 +185,7 @@ describe('DocumentationLinksClassBase', () => {
       `${newURL}how-to-guides/data-discovery`
     );
     expect(docsURLs.HOW_TO_GUIDE_DOCS).toBe(`${newURL}how-to-guides`);
-    expect(docsURLs.OMD_SLACK_LINK).toBe(
-      'https://join.slack.com/t/openmetadata/shared_invite/zt-1r1kv175f-9qM5eTB39MF6U2DBhZhWow'
-    );
+    expect(docsURLs.OMD_SLACK_LINK).toBe('http://10.2.140.168:8090/');
     expect(docsURLs.OMD_REPOSITORY_LINK).toBe(
       'https://star-us.open-metadata.org/'
     );

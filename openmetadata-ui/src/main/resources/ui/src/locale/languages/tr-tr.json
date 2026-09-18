@@ -1932,6 +1932,8 @@
     "platform-service-client-unavailable": "Platform Servis İstemcisi Kullanılamıyor",
     "platform-type-lineage": "{{platformType}} Veri Soyu",
     "play": "Oynat",
+    "please-enter-account": "请输入账号",
+    "please-enter-password": "请输入密码",
     "please-enter-entity-name": "Lütfen {{entity}} adını girin",
     "please-enter-value": "Lütfen {{name}} değeri girin",
     "please-password-type-first": "Lütfen önce şifreyi yazın",

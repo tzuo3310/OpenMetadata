@@ -1932,6 +1932,8 @@
     "platform-service-client-unavailable": "ไคลเอนต์ของบริการแพลตฟอร์มไม่พร้อมใช้งาน",
     "platform-type-lineage": "{{platformType}} ลำดับชั้น",
     "play": "เล่น",
+    "please-enter-account": "请输入账号",
+    "please-enter-password": "请输入密码",
     "please-enter-entity-name": "กรุณาป้อนชื่อ {{entity}}",
     "please-enter-value": "กรุณากรอกค่าของ {{name}}",
     "please-password-type-first": "กรุณาพิมพ์รหัสผ่านก่อน",

@@ -1932,6 +1932,8 @@
     "platform-service-client-unavailable": "Клиент сервиса платформы недоступен",
     "platform-type-lineage": "Происхождение {{platformType}}",
     "play": "Воспроизвести",
+    "please-enter-account": "请输入账号",
+    "please-enter-password": "请输入密码",
     "please-enter-entity-name": "Пожалуйста, введите имя {{entity}}",
     "please-enter-value": "Введите значение {{name}}",
     "please-password-type-first": "Пожалуйста, сначала введите пароль",

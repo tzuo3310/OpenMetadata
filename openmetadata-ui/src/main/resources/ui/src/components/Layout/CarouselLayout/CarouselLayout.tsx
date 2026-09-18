@@ -23,27 +23,14 @@ const LoginCarousel = withSuspenseFallback(
   lazy(() => import('../../../pages/LoginPage/LoginCarousel'))
 );
 
-const LOGIN_SPLIT_LAYOUT_CLASSES =
-  'tw:flex tw:h-screen tw:min-h-screen tw:w-full tw:overflow-hidden tw:bg-white';
+const LOGIN_FULLSCREEN_CLASSES =
+  'tw:relative tw:h-screen tw:min-h-screen tw:w-full tw:overflow-hidden tw:bg-black';
 
-const LOGIN_VIDEO_PANEL_CLASSES =
-  'tw:relative tw:flex tw:flex-[1_1_52%] tw:min-w-0 tw:items-center ' +
-  'tw:justify-center tw:overflow-hidden tw:max-[1000px]:hidden';
+const LOGIN_FULLSCREEN_VIDEO_CLASSES = 'tw:absolute tw:inset-0 tw:z-0';
 
-const LOGIN_VIDEO_INSET_CLASSES =
-  'tw:flex tw:box-border tw:h-full tw:w-full tw:items-center tw:justify-center ' +
-  'tw:p-[clamp(16px,2.8vw,48px)] tw:[container-type:size]';
-
-const LOGIN_VIDEO_CARD_CLASSES =
-  'tw:relative tw:aspect-[2024/2160] tw:max-h-full tw:max-w-full ' +
-  'tw:w-[min(100cqw,93.7cqh)] tw:overflow-hidden tw:rounded-[max(22px,4.8%)] ' +
-  'tw:[transform:translateZ(0)]';
-
-const LOGIN_FORM_PANEL_CLASSES =
-  'tw:flex tw:flex-[1_1_48%] tw:min-w-0 tw:flex-col tw:overflow-y-auto ' +
-  'tw:bg-white tw:max-[1000px]:flex-[1_1_100%] ' +
-  'tw:[&_.login-form-container]:h-auto tw:[&_.login-form-container]:m-auto ' +
-  'tw:[&_.login-form-container]:w-full';
+const LOGIN_FULLSCREEN_FORM_CLASSES =
+  'tw:absolute tw:inset-0 tw:z-10 tw:flex tw:items-center tw:justify-center ' +
+  'tw:overflow-y-auto login-fullscreen-form';
 
 export const CarouselLayout = ({
   pageTitle,
@@ -62,24 +49,16 @@ export const CarouselLayout = ({
       <Layout>
         <DocumentTitle title={pageTitle} />
         <Content
-          className={classNames(LOGIN_SPLIT_LAYOUT_CLASSES, carouselClassName)}
+          className={classNames(
+            LOGIN_FULLSCREEN_CLASSES,
+            carouselClassName,
+            'login-fullscreen'
+          )}
           data-testid="signin-page">
-          <div
-            className={classNames(
-              LOGIN_VIDEO_PANEL_CLASSES,
-              loginClassBase.getLoginVideoPanelClassName()
-            )}>
-            <div className={LOGIN_VIDEO_INSET_CLASSES}>
-              <div
-                className={classNames(
-                  LOGIN_VIDEO_CARD_CLASSES,
-                  loginClassBase.getLoginVideoCardClassName()
-                )}>
-                <LoginCarousel />
-              </div>
-            </div>
+          <div className={LOGIN_FULLSCREEN_VIDEO_CLASSES}>
+            <LoginCarousel />
           </div>
-          <div className={LOGIN_FORM_PANEL_CLASSES}>{children}</div>
+          <div className={LOGIN_FULLSCREEN_FORM_CLASSES}>{children}</div>
         </Content>
       </Layout>
     );

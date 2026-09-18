@@ -76,64 +76,6 @@ test.describe(
       }
     );
 
-    test('Signup and Login with signed up credentials', async ({ page }) => {
-      await page.goto('/');
-
-      await expect(page).toHaveURL(`/signin`);
-
-      // Click on create account button
-      await page.locator('[data-testid="signup"]').click();
-
-      // Enter credentials
-      await page.locator('#firstName').fill(CREDENTIALS.firstName);
-
-      await expect(page.locator('#firstName')).toHaveValue(
-        CREDENTIALS.firstName
-      );
-
-      await page.locator('#lastName').fill(CREDENTIALS.lastName);
-
-      await expect(page.locator('#lastName')).toHaveValue(CREDENTIALS.lastName);
-
-      await page.locator('#email').fill(CREDENTIALS.email);
-
-      await expect(page.locator('#email')).toHaveValue(CREDENTIALS.email);
-
-      await page.locator('#password').fill(CREDENTIALS.password);
-
-      await expect(page.locator('#password')).toHaveAttribute(
-        'type',
-        'password'
-      );
-
-      await page.locator('#confirmPassword').fill(CREDENTIALS.password);
-
-      const createUserResponse = page.waitForResponse(`/api/v1/users/signup`);
-      // Click on create account button
-      await page.getByRole('button', { name: 'Create Account' }).click();
-      await createUserResponse;
-
-      await expect(page).toHaveURL(`/signin`);
-
-      // Login with the created user
-      await page.fill('#email', CREDENTIALS.email);
-      await page.fill('#password', CREDENTIALS.password);
-      const loginResponse = page.waitForResponse(`/api/v1/auth/login`);
-      await page.locator('[data-testid="login"]').click();
-      await loginResponse;
-
-      await expect(page).toHaveURL(
-        (url) => url.pathname === '/' || url.pathname === '/my-data'
-      );
-
-      // Verify user profile
-      await page.locator('[data-testid="dropdown-profile"]').click();
-
-      await expect(page.getByTestId('nav-user-name')).toContainText(
-        `${CREDENTIALS.firstName}${CREDENTIALS.lastName}`
-      );
-    });
-
     test('Signin using invalid credentials', async ({ page }) => {
       await page.goto(`/signin`);
       // Login with invalid email

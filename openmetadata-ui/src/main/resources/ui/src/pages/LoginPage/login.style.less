@@ -87,11 +87,6 @@
       color: @grey-text;
       font-weight: 600;
       width: 100%;
-
-      .forgot-password-link {
-        text-align: right;
-        flex: 1;
-      }
     }
 
     .input-field {
@@ -217,6 +212,138 @@
         object-fit: contain;
         border-radius: 18px;
         overflow: hidden;
+      }
+    }
+  }
+}
+
+.login-fullscreen {
+  // 右侧容器，对应参考 .login-container 的 justify-content: flex-end
+  .login-fullscreen-form {
+    padding: @size-md @size-xl;
+
+    @media screen and (min-width: 992px) {
+      justify-content: flex-end;
+      padding-right: 8%;
+    }
+  }
+
+  .login-form-container {
+    height: auto;
+    padding: 0;
+
+    // 对应参考 .login-container-form：400px 半透明黑卡，圆角 4px
+    .login-box {
+      background: rgba(0, 0, 0, 0.45);
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
+      border-radius: 4px;
+      box-shadow: none;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 400px;
+      max-width: 400px;
+      margin: 0;
+      padding: 30px 0 50px;
+      text-align: center;
+      height: auto;
+
+      .header-text {
+        height: 40px;
+        line-height: 40px;
+        font-size: 25px;
+        color: #fff;
+        margin-top: @size-sm;
+      }
+
+      .forgot-password-row {
+        display: flex;
+        justify-content: flex-end;
+        margin-top: -8px;
+        margin-bottom: @size-md;
+      }
+
+      .login-form {
+        width: 100%;
+        max-width: none;
+        margin: 0;
+        padding: 10px 36px 0 40px;
+
+        .text-grey-muted {
+          color: rgba(255, 255, 255, 0.65) !important;
+        }
+      }
+
+      // 对应参考 .sunway-input：半透明白底 + 白色描边 + 白字
+      .input-field {
+        background: hsla(0, 0%, 100%, 0.3) !important;
+        border: 1px solid #fff;
+        border-radius: 4px;
+        color: #fff;
+        padding: 4px 11px;
+        min-height: 32px;
+        transition: all 0.3s;
+
+        .ant-input {
+          background: transparent !important;
+          color: #fff;
+        }
+
+        &:hover {
+          background: hsla(0, 0%, 100%, 0.3) !important;
+          border-color: #3f4f92;
+          box-shadow: 0 2px 4px 4px rgba(63, 79, 146, 0.3);
+        }
+      }
+
+      .input-field::placeholder,
+      .input-field .ant-input::placeholder {
+        color: hsla(0, 0%, 100%, 0.15);
+      }
+
+      // antd 带 prefix/suffix 时 focus 加在 wrapper 上
+      .input-field.ant-input-affix-wrapper-focused,
+      .input-field.ant-input-affix-wrapper:focus {
+        background: hsla(0, 0%, 100%, 0.3) !important;
+        border-color: #3f4f92;
+        box-shadow: 0 2px 4px 4px rgba(63, 79, 146, 0.3);
+      }
+
+      .ant-input-prefix {
+        color: hsla(0, 0%, 100%, 0.65);
+        margin-right: @size-xs;
+      }
+
+      .ant-input-password-icon {
+        color: hsla(0, 0%, 100%, 0.65);
+        transition: color 0.2s ease;
+
+        &:hover {
+          color: #fff;
+        }
+      }
+
+      // 对应参考 .sunway-btn：蓝色渐变按钮
+      .login-btn {
+        width: 100%;
+        height: 42px;
+        margin-top: 20px;
+        border: none;
+        border-radius: 4px;
+        font-size: 14px;
+        letter-spacing: 0.78px;
+        color: #fff;
+        background: linear-gradient(270deg, #3f4f92, #4b62ab);
+      }
+
+      .ant-btn-link.link-btn,
+      .forgot-password-link {
+        color: rgba(255, 255, 255, 0.75);
+      }
+
+      .signup-text {
+        color: rgba(255, 255, 255, 0.75);
       }
     }
   }
