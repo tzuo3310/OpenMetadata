@@ -57,7 +57,7 @@ export const mockTablePermission = {
 };
 
 export const mockDatasetData = {
-  datasetFQN: 'sample_data.ecommerce_db.shopify.dim_address',
+  datasetFQN: '中铝资本元数据管理.cf_db.dwd.customer_v1',
   tableProfile: {
     timestamp: '1682049950',
     columnCount: 12,
@@ -1853,15 +1853,15 @@ export const mockDatasetData = {
     },
   ],
   tableDetails: {
-    id: '9d664bbd-8c9e-4068-9112-9ab0457d4c52',
+    id: '03ac8119-15a6-44ec-b01f-d14def388591',
     name: 'dim_address',
-    fullyQualifiedName: 'sample_data.ecommerce_db.shopify.dim_address',
+    fullyQualifiedName: '中铝资本元数据管理.cf_db.dwd.customer_v1',
     description:
       'This dimension table contains the billing and shipping addresses of customers. You can join this table with the sales table to generate lists of the billing and shipping addresses. Customers can enter their addresses more than once, so the same address can appear in more than one row in this table. This table contains one row per customer address.',
     version: 0.1,
     updatedAt: 1682049945635,
     updatedBy: 'admin',
-    href: 'http://localhost:8585/api/v1/tables/9d664bbd-8c9e-4068-9112-9ab0457d4c52',
+    href: 'http://localhost:8585/api/v1/tables/03ac8119-15a6-44ec-b01f-d14def388591',
     tableType: 'Regular',
     columns: [
       {
@@ -1870,7 +1870,7 @@ export const mockDatasetData = {
         dataTypeDisplay: 'numeric',
         description: 'Unique identifier for the address.',
         fullyQualifiedName:
-          'sample_data.ecommerce_db.shopify.dim_address.address_id',
+          '中铝资本元数据管理.cf_db.dwd.customer_v1.address_id',
         tags: [],
         ordinalPosition: 1,
       },
@@ -1881,7 +1881,7 @@ export const mockDatasetData = {
         description:
           'The ID of the store. This column is a foreign key reference to the shop_id column in the dim_shop table.',
         fullyQualifiedName:
-          'sample_data.ecommerce_db.shopify.dim_address.shop_id',
+          '中铝资本元数据管理.cf_db.dwd.customer_v1.shop_id',
         tags: [],
         ordinalPosition: 2,
       },
@@ -1892,7 +1892,7 @@ export const mockDatasetData = {
         dataTypeDisplay: 'varchar',
         description: 'First name of the customer.',
         fullyQualifiedName:
-          'sample_data.ecommerce_db.shopify.dim_address.first_name',
+          '中铝资本元数据管理.cf_db.dwd.customer_v1.first_name',
         tags: [],
         ordinalPosition: 3,
       },
@@ -1903,7 +1903,7 @@ export const mockDatasetData = {
         dataTypeDisplay: 'varchar',
         description: 'Last name of the customer.',
         fullyQualifiedName:
-          'sample_data.ecommerce_db.shopify.dim_address.last_name',
+          '中铝资本元数据管理.cf_db.dwd.customer_v1.last_name',
         tags: [],
         ordinalPosition: 4,
       },
@@ -1914,7 +1914,7 @@ export const mockDatasetData = {
         dataTypeDisplay: 'varchar',
         description: 'The first address line. For example, 150 Elgin St.',
         fullyQualifiedName:
-          'sample_data.ecommerce_db.shopify.dim_address.address1',
+          '中铝资本元数据管理.cf_db.dwd.customer_v1.address1',
         tags: [],
         ordinalPosition: 5,
       },
@@ -1925,7 +1925,7 @@ export const mockDatasetData = {
         dataTypeDisplay: 'varchar',
         description: 'The second address line. For example, Suite 800.',
         fullyQualifiedName:
-          'sample_data.ecommerce_db.shopify.dim_address.address2',
+          '中铝资本元数据管理.cf_db.dwd.customer_v1.address2',
         tags: [],
         ordinalPosition: 6,
       },
@@ -1936,7 +1936,7 @@ export const mockDatasetData = {
         dataTypeDisplay: 'varchar',
         description: "The name of the customer's business, if one exists.",
         fullyQualifiedName:
-          'sample_data.ecommerce_db.shopify.dim_address.company',
+          '中铝资本元数据管理.cf_db.dwd.customer_v1.company',
         tags: [],
         ordinalPosition: 7,
       },
@@ -1946,7 +1946,7 @@ export const mockDatasetData = {
         dataLength: 100,
         dataTypeDisplay: 'varchar',
         description: 'The name of the city. For example, Palo Alto.',
-        fullyQualifiedName: 'sample_data.ecommerce_db.shopify.dim_address.city',
+        fullyQualifiedName: '中铝资本元数据管理.cf_db.dwd.customer_v1.city',
         tags: [],
         ordinalPosition: 8,
       },
@@ -1958,7 +1958,7 @@ export const mockDatasetData = {
         description:
           'The name of the region, such as a province or state, where the customer is located. For example, Ontario or New York. This column is the same as CustomerAddress.province in the Admin API.',
         fullyQualifiedName:
-          'sample_data.ecommerce_db.shopify.dim_address.region',
+          '中铝资本元数据管理.cf_db.dwd.customer_v1.region',
         tags: [],
         ordinalPosition: 9,
       },
@@ -1968,7 +1968,7 @@ export const mockDatasetData = {
         dataLength: 10,
         dataTypeDisplay: 'varchar',
         description: 'The ZIP or postal code. For example, 90210.',
-        fullyQualifiedName: 'sample_data.ecommerce_db.shopify.dim_address.zip',
+        fullyQualifiedName: '中铝资本元数据管理.cf_db.dwd.customer_v1.zip',
         tags: [],
         ordinalPosition: 10,
       },
@@ -1979,7 +1979,7 @@ export const mockDatasetData = {
         dataTypeDisplay: 'varchar',
         description: 'The full name of the country. For example, Canada.',
         fullyQualifiedName:
-          'sample_data.ecommerce_db.shopify.dim_address.country',
+          '中铝资本元数据管理.cf_db.dwd.customer_v1.country',
         tags: [],
         ordinalPosition: 11,
       },
@@ -1990,7 +1990,7 @@ export const mockDatasetData = {
         dataTypeDisplay: 'varchar',
         description: 'The phone number of the customer.',
         fullyQualifiedName:
-          'sample_data.ecommerce_db.shopify.dim_address.phone',
+          '中铝资本元数据管理.cf_db.dwd.customer_v1.phone',
         tags: [],
         ordinalPosition: 12,
       },
@@ -2056,18 +2056,18 @@ export const mockSearchData = {
       {
         _index: SearchIndex.TABLE,
         _type: '_doc',
-        _id: '9d664bbd-8c9e-4068-9112-9ab0457d4c52',
+        _id: '03ac8119-15a6-44ec-b01f-d14def388591',
         _score: 12.495619,
         _source: {
-          id: '9d664bbd-8c9e-4068-9112-9ab0457d4c52',
+          id: '03ac8119-15a6-44ec-b01f-d14def388591',
           name: 'dim_address',
-          fullyQualifiedName: 'sample_data.ecommerce_db.shopify.dim_address',
+          fullyQualifiedName: '中铝资本元数据管理.cf_db.dwd.customer_v1',
           description:
             'This dimension table contains the billing and shipping addresses of customers. You can join this table with the sales table to generate lists of the billing and shipping addresses. Customers can enter their addresses more than once, so the same address can appear in more than one row in this table. This table contains one row per customer address.',
           version: 0.1,
           updatedAt: 1682049945635,
           updatedBy: 'admin',
-          href: 'http://openmetadata-server:8585/api/v1/tables/9d664bbd-8c9e-4068-9112-9ab0457d4c52',
+          href: 'http://openmetadata-server:8585/api/v1/tables/03ac8119-15a6-44ec-b01f-d14def388591',
           tableType: 'Regular',
           columns: [
             {
@@ -2076,7 +2076,7 @@ export const mockSearchData = {
               dataTypeDisplay: 'numeric',
               description: 'Unique identifier for the address.',
               fullyQualifiedName:
-                'sample_data.ecommerce_db.shopify.dim_address.address_id',
+                '中铝资本元数据管理.cf_db.dwd.customer_v1.address_id',
               tags: [],
               ordinalPosition: 1,
             },
@@ -2087,7 +2087,7 @@ export const mockSearchData = {
               description:
                 'The ID of the store. This column is a foreign key reference to the shop_id column in the dim_shop table.',
               fullyQualifiedName:
-                'sample_data.ecommerce_db.shopify.dim_address.shop_id',
+                '中铝资本元数据管理.cf_db.dwd.customer_v1.shop_id',
               tags: [],
               ordinalPosition: 2,
             },
@@ -2098,7 +2098,7 @@ export const mockSearchData = {
               dataTypeDisplay: 'varchar',
               description: 'First name of the customer.',
               fullyQualifiedName:
-                'sample_data.ecommerce_db.shopify.dim_address.first_name',
+                '中铝资本元数据管理.cf_db.dwd.customer_v1.first_name',
               tags: [],
               ordinalPosition: 3,
             },
@@ -2109,7 +2109,7 @@ export const mockSearchData = {
               dataTypeDisplay: 'varchar',
               description: 'Last name of the customer.',
               fullyQualifiedName:
-                'sample_data.ecommerce_db.shopify.dim_address.last_name',
+                '中铝资本元数据管理.cf_db.dwd.customer_v1.last_name',
               tags: [],
               ordinalPosition: 4,
             },
@@ -2120,7 +2120,7 @@ export const mockSearchData = {
               dataTypeDisplay: 'varchar',
               description: 'The first address line. For example, 150 Elgin St.',
               fullyQualifiedName:
-                'sample_data.ecommerce_db.shopify.dim_address.address1',
+                '中铝资本元数据管理.cf_db.dwd.customer_v1.address1',
               tags: [],
               ordinalPosition: 5,
             },
@@ -2131,7 +2131,7 @@ export const mockSearchData = {
               dataTypeDisplay: 'varchar',
               description: 'The second address line. For example, Suite 800.',
               fullyQualifiedName:
-                'sample_data.ecommerce_db.shopify.dim_address.address2',
+                '中铝资本元数据管理.cf_db.dwd.customer_v1.address2',
               tags: [],
               ordinalPosition: 6,
             },
@@ -2143,7 +2143,7 @@ export const mockSearchData = {
               description:
                 "The name of the customer's business, if one exists.",
               fullyQualifiedName:
-                'sample_data.ecommerce_db.shopify.dim_address.company',
+                '中铝资本元数据管理.cf_db.dwd.customer_v1.company',
               tags: [],
               ordinalPosition: 7,
             },
@@ -2154,7 +2154,7 @@ export const mockSearchData = {
               dataTypeDisplay: 'varchar',
               description: 'The name of the city. For example, Palo Alto.',
               fullyQualifiedName:
-                'sample_data.ecommerce_db.shopify.dim_address.city',
+                '中铝资本元数据管理.cf_db.dwd.customer_v1.city',
               tags: [],
               ordinalPosition: 8,
             },
@@ -2166,7 +2166,7 @@ export const mockSearchData = {
               description:
                 'The name of the region, such as a province or state, where the customer is located. For example, Ontario or New York. This column is the same as CustomerAddress.province in the Admin API.',
               fullyQualifiedName:
-                'sample_data.ecommerce_db.shopify.dim_address.region',
+                '中铝资本元数据管理.cf_db.dwd.customer_v1.region',
               tags: [],
               ordinalPosition: 9,
             },
@@ -2177,7 +2177,7 @@ export const mockSearchData = {
               dataTypeDisplay: 'varchar',
               description: 'The ZIP or postal code. For example, 90210.',
               fullyQualifiedName:
-                'sample_data.ecommerce_db.shopify.dim_address.zip',
+                '中铝资本元数据管理.cf_db.dwd.customer_v1.zip',
               tags: [],
               ordinalPosition: 10,
             },
@@ -2188,7 +2188,7 @@ export const mockSearchData = {
               dataTypeDisplay: 'varchar',
               description: 'The full name of the country. For example, Canada.',
               fullyQualifiedName:
-                'sample_data.ecommerce_db.shopify.dim_address.country',
+                '中铝资本元数据管理.cf_db.dwd.customer_v1.country',
               tags: [],
               ordinalPosition: 11,
             },
@@ -2199,7 +2199,7 @@ export const mockSearchData = {
               dataTypeDisplay: 'varchar',
               description: 'The phone number of the customer.',
               fullyQualifiedName:
-                'sample_data.ecommerce_db.shopify.dim_address.phone',
+                '中铝资本元数据管理.cf_db.dwd.customer_v1.phone',
               tags: [],
               ordinalPosition: 12,
             },
@@ -2246,7 +2246,7 @@ export const mockSearchData = {
           followers: [],
           suggest: [
             {
-              input: 'sample_data.ecommerce_db.shopify.dim_address',
+              input: '中铝资本元数据管理.cf_db.dwd.customer_v1',
               weight: 5,
             },
             { input: 'dim_address', weight: 10 },

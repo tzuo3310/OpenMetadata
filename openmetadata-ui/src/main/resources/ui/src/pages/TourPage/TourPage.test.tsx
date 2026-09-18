@@ -51,7 +51,25 @@ const createReadyFeedWidget = () => {
   return feedWidget;
 };
 
-const waitForTourReadyCheck = async (time = 80) => {
+const createReadySearchCard = () => {
+  const searchCard = document.createElement('div');
+  searchCard.textContent = 'Tour search card';
+  jest.spyOn(searchCard, 'getBoundingClientRect').mockReturnValue({
+    bottom: 100,
+    height: 100,
+    left: 0,
+    right: 100,
+    top: 0,
+    width: 100,
+    x: 0,
+    y: 0,
+    toJSON: jest.fn(),
+  });
+
+  return searchCard;
+};
+
+const waitForTourReadyCheck = async (time = 500) => {
   await act(async () => {
     jest.advanceTimersByTime(time);
   });
@@ -92,9 +110,13 @@ describe('TourPage component', () => {
     jest.useFakeTimers();
 
     const feedWidget = createReadyFeedWidget();
+    const searchCard = createReadySearchCard();
     mockQuerySelector.mockImplementation((selector) => {
       if (selector === '#feedWidgetData') {
         return feedWidget;
+      }
+      if (selector === '#search-card-03ac8119-15a6-44ec-b01f-d14def388591') {
+        return searchCard;
       }
 
       return null;
@@ -131,17 +153,22 @@ describe('TourPage component', () => {
 
     expect(screen.queryByText('Tour.component')).not.toBeInTheDocument();
 
+    const searchCard = createReadySearchCard();
     mockQuerySelector.mockImplementation((selector) => {
       if (selector === '#feedWidgetData') {
         return feedWidget;
+      }
+      if (selector === '#search-card-03ac8119-15a6-44ec-b01f-d14def388591') {
+        return searchCard;
       }
 
       return null;
     });
     await act(async () => {
       document.body.appendChild(feedWidget);
+      document.body.appendChild(searchCard);
     });
-    await waitForTourReadyCheck(116);
+    await waitForTourReadyCheck(600);
 
     expect(screen.getByText('Tour.component')).toBeInTheDocument();
 
@@ -175,9 +202,13 @@ describe('TourPage component', () => {
         toJSON: jest.fn(),
       });
 
+    const searchCard = createReadySearchCard();
     mockQuerySelector.mockImplementation((selector) => {
       if (selector === '#feedWidgetData') {
         return feedWidget;
+      }
+      if (selector === '#search-card-03ac8119-15a6-44ec-b01f-d14def388591') {
+        return searchCard;
       }
 
       return null;
@@ -187,8 +218,8 @@ describe('TourPage component', () => {
 
     expect(screen.queryByText('Tour.component')).not.toBeInTheDocument();
 
-    await waitForTourReadyCheck();
-    await waitForTourReadyCheck();
+    await waitForTourReadyCheck(500);
+    await waitForTourReadyCheck(500);
 
     expect(screen.getByText('Tour.component')).toBeInTheDocument();
     expect(getBoundingClientRect).toHaveBeenCalled();

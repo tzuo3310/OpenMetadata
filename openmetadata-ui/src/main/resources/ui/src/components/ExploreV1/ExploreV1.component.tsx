@@ -130,6 +130,7 @@ const ExploreV1: React.FC<ExploreProps> = ({
   browseFields = [],
   browseQueryFilter,
   onTreeSelect = noop,
+  isTourMode = false,
 }) => {
   const tabsInfo = searchClassBase.getTabsInfo();
   const { t } = useTranslation();
@@ -651,6 +652,9 @@ const ExploreV1: React.FC<ExploreProps> = ({
   }, [activeTabKey, quickFilters]);
 
   useEffect(() => {
+    if (isTourMode) {
+      return;
+    }
     if (!isUndefined(searchResults) && searchResults?.hits?.hits[0]) {
       handleSummaryPanelDisplay(
         highlightEntityNameAndDescription(
@@ -662,7 +666,7 @@ const ExploreV1: React.FC<ExploreProps> = ({
       setShowSummaryPanel(false);
       setEntityDetails(undefined);
     }
-  }, [searchResults]);
+  }, [isTourMode, searchResults]);
 
   const exportModalTitle = useMemo(
     () => (

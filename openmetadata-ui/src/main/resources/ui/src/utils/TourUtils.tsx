@@ -11,6 +11,7 @@
  *  limitations under the License.
  */
 
+import { mockDatasetData } from '../constants/mockTourData.constants';
 import { EntityTabs } from '../enums/entity.enum';
 import { CurrentTourPageType } from '../enums/tour.enum';
 import i18n, { Transi18next } from './i18next/LocalUtil';
@@ -96,7 +97,7 @@ export const getTourSteps = ({
         />
       </p>
     ),
-    selector: '#search-card-9d664bbd-8c9e-4068-9112-9ab0457d4c52',
+    selector: `#search-card-${mockDatasetData.tableDetails.id}`,
     stepInteraction: false,
   },
   {
@@ -109,7 +110,7 @@ export const getTourSteps = ({
       </p>
     ),
     actionType: 'click',
-    selector: '[data-testid="sample_data.ecommerce_db.shopify.dim_address"]',
+    selector: '[data-testid="中铝资本元数据管理.cf_db.dwd.customer_v1"]',
     beforeNext: () => {
       updateTourPage(CurrentTourPageType.DATASET_PAGE);
     },

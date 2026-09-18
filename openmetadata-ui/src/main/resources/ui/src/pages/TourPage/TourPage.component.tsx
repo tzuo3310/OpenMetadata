@@ -35,7 +35,11 @@ import MyDataPage from '../MyDataPage/MyDataPage.component';
 import TableDetailsPageV1 from '../TableDetailsPageV1/TableDetailsPageV1';
 
 const TOUR_FEED_WIDGET_SELECTOR = '#feedWidgetData';
+// 从 mock 表 id 派生搜索卡片选择器，避免与 mock 数据脱节的硬编码 GUID
+const TOUR_SEARCH_CARD_SELECTOR = `#search-card-${mockDatasetData.tableDetails.id}`;
 const REQUIRED_STABLE_LAYOUT_FRAMES = 3;
+const ELEMENT_POLL_INTERVAL_MS = 50;
+const TOUR_START_DELAY_MS = 300;
 
 type TourTargetRect = {
   height: number;
@@ -104,6 +108,28 @@ const waitForTourFeedWidget = (onReady: () => void) => {
   };
 };
 
+const waitForElement = (selector: string, onReady: () => void) => {
+  let timeoutId = 0;
+
+  const check = () => {
+    const element = document.querySelector(selector);
+    const rect = element?.getBoundingClientRect();
+    const hasContent = Boolean(element?.textContent?.trim());
+
+    if (element && rect && rect.width > 0 && rect.height > 0 && hasContent) {
+      onReady();
+    } else {
+      timeoutId = window.setTimeout(check, ELEMENT_POLL_INTERVAL_MS);
+    }
+  };
+
+  check();
+
+  return () => {
+    window.clearTimeout(timeoutId);
+  };
+};
+
 const TourPage = () => {
   const {
     updateIsTourOpen,
@@ -141,16 +167,23 @@ const TourPage = () => {
 
   useEffect(() => {
     let tourMountFrameId = 0;
+    let cancelSearchCardWait: (() => void) | undefined;
     const cancelFeedWidgetWait = waitForTourFeedWidget(() => {
-      updateIsTourOpen(true);
-      tourMountFrameId = window.requestAnimationFrame(() => {
-        setIsTourReady(true);
-      });
+      // Give the pre-mounted Explore page a moment to render the mock search
+      // cards before starting the tour. Without this, step 4 can activate
+      // before the target card exists and render an empty spotlight.
+      tourMountFrameId = window.setTimeout(() => {
+        cancelSearchCardWait = waitForElement(TOUR_SEARCH_CARD_SELECTOR, () => {
+          updateIsTourOpen(true);
+          setIsTourReady(true);
+        });
+      }, TOUR_START_DELAY_MS);
     });
 
     return () => {
       cancelFeedWidgetWait();
-      window.cancelAnimationFrame(tourMountFrameId);
+      cancelSearchCardWait?.();
+      window.clearTimeout(tourMountFrameId);
     };
   }, [updateIsTourOpen]);
 
@@ -161,7 +194,14 @@ const TourPage = () => {
   const shouldRenderExplore =
     currentTourPage === CurrentTourPageType.MY_DATA_PAGE || isExplorePage;
   const exploreStyle = useMemo(
-    () => ({ display: isExplorePage ? undefined : 'none' }),
+    () =>
+      isExplorePage
+        ? undefined
+        : {
+            pointerEvents: 'none',
+            position: 'absolute',
+            visibility: 'hidden',
+          },
     [isExplorePage]
   );
 

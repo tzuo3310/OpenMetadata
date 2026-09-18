@@ -74,6 +74,7 @@ const ExplorePageV1: FC<unknown> = () => {
   const navigate = useNavigate();
   const { isTourOpen, tourMockSearchResults, tourMockSearchHitCounts } =
     useTourProvider();
+
   const TABS_SEARCH_INDEXES = Object.keys(tabsInfo) as ExploreSearchIndex[];
   const { isNLPActive, isNLPEnabled } = useSearchStore();
   const isNLPRequestEnabled = isNLPEnabled && isNLPActive;
@@ -615,6 +616,7 @@ const ExplorePageV1: FC<unknown> = () => {
       browseQueryFilter={browseQueryFilter}
       currentPage={currentPage}
       isElasticSearchIssue={showIndexNotFoundAlert}
+      isTourMode={isTourOpen}
       loading={isLoading && !isTourOpen}
       pageSize={currentPageSize}
       quickFilters={advancedSearchQuickFilters}

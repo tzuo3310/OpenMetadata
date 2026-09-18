@@ -128,6 +128,13 @@ export interface ExploreProps {
     browseFields: ExploreQuickFilterField[];
     quickFilter?: QueryFilterInterface;
   }) => void;
+
+  // Suppresses the auto-opened right-hand SummaryPanel that the explore page
+  // would otherwise trigger as soon as `searchResults` arrives. The tour
+  // re-uses ExplorePageV1 with mock data and mounts SearchedData on its way to
+  // the data-asset step, where the panel would steal a third of the viewport
+  // and shove the highlighted search card into the lower-left quadrant.
+  isTourMode?: boolean;
 }
 
 export interface ExploreQuickFilterField {
