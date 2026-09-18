@@ -53,12 +53,11 @@ const SignInPage = () => {
 
   const brandName = t('label.brand-name');
 
-  const { isAuthProviderBasic, isAuthProviderLDAP } = useMemo(() => {
+  const { isAuthProviderBasic } = useMemo(() => {
     return {
       isAuthProviderBasic:
         authConfig?.provider === AuthProvider.Basic ||
         authConfig?.provider === AuthProvider.LDAP,
-      isAuthProviderLDAP: authConfig?.provider === AuthProvider.LDAP,
     };
   }, [authConfig]);
 
