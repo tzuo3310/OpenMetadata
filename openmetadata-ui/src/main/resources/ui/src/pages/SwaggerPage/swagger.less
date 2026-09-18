@@ -10,9 +10,54 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
+@import (reference) '../../styles/variables.less';
+
 #doc-container {
+  display: flex;
+  flex-direction: column;
+
   ul,
   ol {
     list-style: auto;
+  }
+
+  .api-doc-branding {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 24px;
+    background-color: @white;
+    border-bottom: 1px solid @grey-2;
+    flex-shrink: 0;
+
+    &-logo {
+      height: 32px;
+      max-width: 160px;
+      object-fit: contain;
+    }
+
+    &-text {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    &-title {
+      font-size: 18px;
+      font-weight: 600;
+      line-height: 1.4;
+      color: @text-color;
+    }
+
+    &-description {
+      font-size: 14px;
+      line-height: 1.5;
+      color: @text-color-tertiary;
+    }
+  }
+
+  rapi-doc {
+    flex: 1 1 auto;
+    min-height: 0;
   }
 }

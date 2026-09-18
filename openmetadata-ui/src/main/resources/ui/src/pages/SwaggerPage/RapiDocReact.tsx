@@ -63,19 +63,19 @@ interface RapiDocProps
   'default-schema-tab'?: 'model' | 'example';
   'response-area-height'?: string;
   // Hide/Show Sections
-  'show-info'?: boolean;
-  'info-description-headings-in-navbar'?: boolean;
-  'show-components'?: boolean;
-  'show-header'?: boolean;
-  'allow-authentication'?: boolean;
-  'allow-spec-url-load'?: boolean;
-  'allow-spec-file-load'?: boolean;
-  'allow-spec-file-download'?: boolean;
-  'allow-search'?: boolean;
-  'allow-advanced-search'?: boolean;
-  'allow-try'?: boolean;
-  'allow-server-selection'?: boolean;
-  'allow-schema-description-expand-toggle'?: boolean;
+  'show-info'?: boolean | 'true' | 'false';
+  'info-description-headings-in-navbar'?: boolean | 'true' | 'false';
+  'show-components'?: boolean | 'true' | 'false';
+  'show-header'?: boolean | 'true' | 'false';
+  'allow-authentication'?: boolean | 'true' | 'false';
+  'allow-spec-url-load'?: boolean | 'true' | 'false';
+  'allow-spec-file-load'?: boolean | 'true' | 'false';
+  'allow-spec-file-download'?: boolean | 'true' | 'false';
+  'allow-search'?: boolean | 'true' | 'false';
+  'allow-advanced-search'?: boolean | 'true' | 'false';
+  'allow-try'?: boolean | 'true' | 'false';
+  'allow-server-selection'?: boolean | 'true' | 'false';
+  'allow-schema-description-expand-toggle'?: boolean | 'true' | 'false';
   // API Server & calls
   'server-url'?: string;
   'default-api-server'?: string;
@@ -124,24 +124,24 @@ const RapiDocReact = React.forwardRef<HTMLDivElement, RapiDocProps>(
           ? ref?.current
           : localRef.current;
 
-      const handleBeforeRender = (spec: any) => {
-        beforeRender?.(spec);
+      const handleBeforeRender = (event: Event) => {
+        beforeRender?.((event as CustomEvent).detail);
       };
 
-      const handleSpecLoaded = (spec: any) => {
-        specLoaded?.(spec);
+      const handleSpecLoaded = (event: Event) => {
+        specLoaded?.((event as CustomEvent).detail);
       };
 
-      const handleBeforeTry = (request: any) => {
-        beforeTry?.(request);
+      const handleBeforeTry = (event: Event) => {
+        beforeTry?.((event as CustomEvent).detail);
       };
 
-      const handleAfterTry = (data: any) => {
-        afterTry?.(data);
+      const handleAfterTry = (event: Event) => {
+        afterTry?.((event as CustomEvent).detail);
       };
 
-      const handleApiServerChange = (server: any) => {
-        apiServerChange?.(server);
+      const handleApiServerChange = (event: Event) => {
+        apiServerChange?.((event as CustomEvent).detail);
       };
 
       if (rapiDocRef) {
