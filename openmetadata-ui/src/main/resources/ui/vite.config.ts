@@ -79,6 +79,24 @@ const injectCriticalPreloads = (): Plugin => {
   };
 };
 
+/**
+ * Vite plugin: resolve the `${basePath}` placeholder that `index.html` carries
+ * for the Java backend. The dev server performs no runtime substitution, so
+ * every `${basePath}...` URL is requested literally and the SPA fallback answers
+ * with index.html — the manifest link then dies with
+ * "Manifest: Line 1, column 1, Syntax error" (and every favicon 404s). Serving
+ * from `/` is what the backend does on a root deployment, and `getBasePath()`
+ * already maps the un-substituted placeholder to '' at runtime, so dev stays
+ * consistent with production.
+ */
+const resolveDevBasePath = (): Plugin => ({
+  name: 'resolve-dev-base-path',
+  apply: 'serve',
+  transformIndexHtml(html: string) {
+    return html.replaceAll('${basePath}', '/');
+  },
+});
+
 export default defineConfig(async ({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '');
   const brandName = env.BRAND_NAME || 'LingLongPagoda';
@@ -120,6 +138,7 @@ export default defineConfig(async ({ mode }) => {
       cspNonce: '${cspNonce}', // Placeholder replaced by Java backend at runtime
     },
     plugins: [
+      resolveDevBasePath(),
       {
         name: 'html-transform',
         transformIndexHtml(html: string) {
@@ -248,6 +267,15 @@ export default defineConfig(async ({ mode }) => {
           changeOrigin: true,
           ws: true,
         },
+        // The Swagger doc page renders the RapiDoc component with a relative
+        // `spec-url="./swagger.json"`; in production the Java backend serves
+        // the file itself, but the dev server has no static asset by that
+        // name. Forward the request to the backend so the docs page works
+        // when running `yarn start` against a local server.
+        '/swagger.json': {
+          target: devServerTarget,
+          changeOrigin: true,
+        },
       },
       watch: {
         ignored: [
@@ -274,6 +302,10 @@ export default defineConfig(async ({ mode }) => {
           target: devServerTarget,
           changeOrigin: true,
           ws: true,
+        },
+        '/swagger.json': {
+          target: devServerTarget,
+          changeOrigin: true,
         },
       },
     },

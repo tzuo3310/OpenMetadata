@@ -9,11 +9,39 @@ OpenMetadata is a unified metadata platform for data discovery, data observabili
 ## Architecture Overview
 
 - **Backend**: Java 21 + Dropwizard REST API framework, multi-module Maven project
-- **Frontend**: React + TypeScript + Ant Design, built with Webpack and Yarn
+- **Frontend**: React + TypeScript, built with **Vite** (not Webpack) and Yarn; component library is `openmetadata-ui-core-components` (Tailwind CSS v4 with `tw:` prefix, react-aria-components foundation). Ant Design exists only in legacy code.
 - **Ingestion**: Python 3.10-3.12 with Pydantic 2.x, 75+ data source connectors
 - **Database**: MySQL (default) or PostgreSQL with Flyway migrations
 - **Search**: Elasticsearch 7.17+ or OpenSearch 2.6+ for metadata discovery
 - **Infrastructure**: Apache Airflow for workflow orchestration
+
+## Local Build & Environment Constraints
+
+These gotchas are environment-specific and not visible from the code:
+
+- **Maven is NOT installed locally.** Java 21 (Temurin) is available, but `mvn`/`mvnw` are not. Every Maven step (`mvn compile`, `make generate`, `mvn spotless:apply`, `mvn clean install`) MUST run inside Docker, not on the host. Reusable pattern (bind `~/.m2` to a named volume `om-m2` so dependencies persist across runs):
+  ```bash
+  docker run -d --name om-maven-build \
+    -v <repo-root>:/workspace -v om-m2:/root/.m2 -w /workspace \
+    -e MAVEN_OPTS="-Xmx4g -XX:MaxMetaspaceSize=1g" \
+    maven:3.9-eclipse-temurin-21 \
+    mvn -DskipTests clean install -pl '!openmetadata-ui'
+  docker logs -f om-maven-build   # first build downloads many deps and is slow
+  ```
+- **Node safe-delete shim is broken after the Node upgrade (v26 via nvm).** `NODE_OPTIONS` injects a `node-language-shim.cjs` that wraps `fs.unlink` and spawns the deleted Node v20 binary, so any command that deletes files (`yarn install`, vite HMR, `rm`) fails with ENOENT. **Fix: prefix every node/yarn/npm/vite command with `NODE_OPTIONS=""`.** UI dev setup:
+  ```bash
+  NODE_OPTIONS="" yarn install --ignore-scripts --ignore-engines
+  NODE_OPTIONS="" ./node_modules/.bin/vite   # dev server :3000, proxies /api → :8585
+  ```
+
+## Runtime Data Flow (big picture)
+
+- `openmetadata-spec/` JSON Schemas are the single source of truth. `make generate` produces Java entity/DAO classes (`openmetadata-service`), TypeScript types in `generated/` (UI), and Pydantic models (`ingestion`).
+- `openmetadata-service` exposes a Dropwizard/JAX-RS REST API backed by MySQL/Postgres + Elasticsearch/OpenSearch. The UI and the Python ingestion connectors both call this same API.
+- Ingestion connectors (`ingestion/`) read external sources and push metadata into the API; the API persists to the DB and indexes into search.
+- `openmetadata-ui` is a Vite SPA that calls the API through generated SDK clients and renders with `openmetadata-ui-core-components`.
+- `openmetadata-mcp` is an MCP server exposing the same metadata over MCP for AI agents.
+- `openmetadata-ui-core-components` is a separately-built package consumed by the UI; changes there need their own build and the same UI checkstyle sequence.
 
 ## Essential Development Commands
 
@@ -35,6 +63,12 @@ yarn playwright:run            # Run E2E tests
 yarn lint                      # ESLint check
 yarn lint:fix                  # ESLint with auto-fix
 yarn build                     # Production build
+yarn ui-checkstyle:changed    # one-shot checkstyle for changed files (excludes tsc)
+yarn organize-imports:cli <files>  # sort imports
+yarn pretty:base --write <files>   # prettier (2-space, single quotes)
+yarn license-header-fix <files>    # add Apache 2.0 header
+yarn i18n                     # sync all locale files with en-us.json
+npx tsc --noEmit             # type check
 ```
 
 ### Backend Development
@@ -97,6 +131,7 @@ yarn parse-schema              # Parse JSON schemas for frontend (connection and
 - `bootstrap/sql/` - Database schema migrations and sample data
 - `conf/` - Configuration files for different environments
 - `docker/` - Docker configurations for local and production deployment
+- `conf/openmetadata.yaml` - main server config (auth, database, search, `operationsConfigFile`); `conf/operations.yaml` - operational config incl. email `supportUrl` (overridable via `OM_SUPPORT_URL` env var)
 
 ## Development Workflow
 
