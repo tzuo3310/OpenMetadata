@@ -21,6 +21,11 @@ import i18n from './i18next/LocalUtil';
 export default class Fqn {
   // Equivalent of Java's FullyQualifiedName#split
   static split(fqn: string) {
+    // ANTLR throws `mismatched input '<EOF>'` on empty input; no parts is the
+    // intended result for an empty fqn (e.g. list pages rendering without one).
+    if (!fqn) {
+      return [];
+    }
     const chars = new antlr4.InputStream(fqn);
     const lexer = new FqnLexer(chars);
     const tokens = new antlr4.CommonTokenStream(lexer);

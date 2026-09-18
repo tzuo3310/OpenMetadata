@@ -80,6 +80,23 @@ const getSearchIndexFromTabInfo = (
   return tabInfo[0] as SearchIndex;
 };
 
+// QbUtils.checkTree() warns "Tree check errors" whenever it has to sanitize the
+// tree. The tree we reset to is a deliberately blank rule (no operator, no
+// value), so it is always sanitized and the warning is pure noise on every
+// Explore page load. checkTree is just sanitizeTree() with options copied from
+// the config, so mirror them here to get the identical tree without the noise.
+const getBlankTree = (config: Config) =>
+  QbUtils.Validation.sanitizeTree(
+    QbUtils.loadTree(getEmptyJsonTree()),
+    config,
+    {
+      removeEmptyGroups: config.settings.removeEmptyGroupsOnLoad,
+      removeEmptyRules: config.settings.removeEmptyRulesOnLoad,
+      removeIncompleteRules: config.settings.removeIncompleteRulesOnLoad,
+      forceFix: false,
+    }
+  ).fixedTree;
+
 export const AdvanceSearchProvider = ({
   children,
   isExplorePage = true,
@@ -206,9 +223,7 @@ export const AdvanceSearchProvider = ({
   };
 
   const handleReset = useCallback(() => {
-    setTreeInternal(
-      QbUtils.checkTree(QbUtils.loadTree(getEmptyJsonTree()), config)
-    );
+    setTreeInternal(getBlankTree(config));
 
     setQueryFilter(undefined);
     setSQLQuery('');
